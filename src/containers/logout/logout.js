@@ -5,7 +5,7 @@ export default function Logout() {
   return (
     <div className="logout">
       <div className="lander">
-        <h1>Rogério TCC</h1>
+        <h1>Rogério ReactApp</h1>
         <p>Obrigado Volte sempre</p>
       </div>
     </div>

@@ -18,7 +18,7 @@ function App(props) {
       <Navbar fluid collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to="/">Rogério TCC</Link>
+            <Link to="/">Rogério ReactAPP</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

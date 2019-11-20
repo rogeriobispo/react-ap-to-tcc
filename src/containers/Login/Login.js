@@ -18,6 +18,8 @@ export default function Login(props) {
     try {
         const response = await AuthClient.post("/login", { "userName": userName, 	"password": password })
         login(response.data.token)
+        props.history.push('/')
+        window.location.reload() //este refresh esta errado
     } catch (e) {
         alert(`Erro ao logar: ${e.message}`);
     }
