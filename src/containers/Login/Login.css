@@ -7,4 +7,15 @@
       margin: 0 auto;
       max-width: 320px;
     }
+
+    .message {
+      display: none;
+    }
+
+    .messageShow {
+      color: red;
+      display: inline-block;
+      text-align: center;
+    }
+
   }
