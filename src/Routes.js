@@ -5,13 +5,14 @@ import Home from './containers/Home/Home';
 import NotFound from "./containers/NotFound/NotFound";
 import Login from './containers/Login/Login';
 import Logout from './containers/logout/logout'
+import PrivateRoute from "./containers/privateRoute/privateRoute";
 
 export default function Routes() {
   return (
     <Switch>
-      <Route path="/" exact component={Home} />
+      <Route path="/" exact component={Login} />
       <Route path="/logout" exact component={Logout}/>
-      <Route path="/login" exact component={Login} />
+      <PrivateRoute path="/home" exact component={Home} />
       { /* Finally, catch all unmatched routes */ }
       <Route component={NotFound} />
     </Switch>
