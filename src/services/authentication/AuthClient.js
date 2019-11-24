@@ -1,5 +1,4 @@
 import axios from "axios"
-import { getToken } from "../authentication/auth"
 
 console.dir(process.env)
 const AuthClient = axios.create({
