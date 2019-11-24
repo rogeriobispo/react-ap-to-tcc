@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
-// import { Container } from './styles';
-
-export default function layout(prop) {
+export default function PublicLayout(prop) {
   return (
     <div className="App container">
     <Navbar fluid collapseOnSelect>
@@ -17,15 +15,9 @@ export default function layout(prop) {
     </Navbar.Header>
     <Navbar.Collapse>
       <Nav pullRight>
-      { prop.isAuthenticated ? 
-              <LinkContainer to="/logout">
-              <NavItem onClick={()=> prop.handleLogout()} >Logout</NavItem>
-            </LinkContainer> :
-            
-            <LinkContainer to="/">
-              <NavItem> Login</NavItem>
-            </LinkContainer>
-         }    
+          <LinkContainer to="/">
+            <NavItem> Login</NavItem>
+          </LinkContainer>
       </Nav>
     </Navbar.Collapse>
   </Navbar>

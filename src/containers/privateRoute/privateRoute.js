@@ -1,7 +1,7 @@
 import React from "react";
 import { isAuthenticated, logout } from "../../services/authentication/auth"
 import { Route, Redirect } from "react-router-dom";
-import Layout from "../layout";
+import PrivateLayout from "../layout/privateLayout";
 
 export default function PrivateRoute(props) {
   function handleLogout() {
@@ -13,11 +13,11 @@ export default function PrivateRoute(props) {
 
    return (
          
-    <Layout handleLogout={handleLogout} isAuthenticated={  isAuthenticated() } >
+    <PrivateLayout handleLogout={handleLogout} isAuthenticated={  isAuthenticated() } >
       <Route { ...rest } exact render={ () => isAuthenticated() ?  <Component { ...props } onLogout={ () => { }  }  /> :  <Redirect
             to={{ pathname: '/login' }}
             /> } />
-    </Layout> 
+    </PrivateLayout> 
   
 
   );
