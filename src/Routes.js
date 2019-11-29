@@ -7,6 +7,7 @@ import NotFound from "./containers/NotFound/NotFound";
 import Login from './containers/Login/Login';
 import Logout from './containers/logout/logout'
 import PrivateRoute from "./containers/privateRoute/privateRoute";
+import UsuarioList from "./containers/UsuarioList/Usuariolist";
 
 export default function Routes() {
   return (
@@ -14,7 +15,8 @@ export default function Routes() {
       <Route path="/" exact component={Login} />
       <Route path="/logout" exact component={Logout}/>
       <PrivateRoute path="/home" exact component={Home} />
-      <PrivateRoute path="/usuario" exact component={UsuarioForm} />
+      <PrivateRoute path="/usuarioForm" exact component={UsuarioForm} />
+      <PrivateRoute path="/usuarioList" exact component={UsuarioList} />
       { /* Finally, catch all unmatched routes */ }
       <Route component={NotFound} />
     </Switch>

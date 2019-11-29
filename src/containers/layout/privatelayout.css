@@ -1,0 +1,17 @@
+.barSup {
+    bottom: 0px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.menu{
+    top: 0px;
+    padding: 0px;
+    margin: 0px;
+    
+}
+
+.borderRightLeft{
+    border-right: 5px solid red;
+    border-left: 5px solid red;
+}

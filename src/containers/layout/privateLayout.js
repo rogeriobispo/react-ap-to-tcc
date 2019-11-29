@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem} from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-// import { Container } from './styles';
+import './privatelayout.css'
 
 export default function PrivateLayout(prop) {
   function handleSelect(eventKey, event) {
@@ -13,7 +13,7 @@ export default function PrivateLayout(prop) {
   
   return (
     <div className="App container">
-    <Navbar fluid collapseOnSelect>
+    <Navbar fluid collapseOnSelect className="barSup  borderRightLeft">
     <Navbar.Header>
       <Navbar.Brand>
         <Link to="/home">Rogério ReactAPP</Link>
@@ -35,10 +35,10 @@ export default function PrivateLayout(prop) {
     </Navbar.Collapse>
   </Navbar>
     {/* menu */}
-    <Nav bsStyle="tabs" activeKey="1" onSelect={k => handleSelect(k)}>
+    <Nav bsStyle="tabs" activeKey="1" onSelect={k => handleSelect(k)} className="menu borderRightLeft">
         <NavDropdown eventKey="1" title="Usuário" id="nav-dropdown">
-          <MenuItem eventKey="1.1"><Link to="/usuario">Criar</Link></MenuItem>
-          <MenuItem eventKey="1.2"><Link to="#">Listar</Link></MenuItem>
+          <MenuItem eventKey="1.1"><Link to="/usuarioForm">Criar</Link></MenuItem>
+          <MenuItem eventKey="1.2"><Link to="/usuarioList">Listar</Link></MenuItem>
           <MenuItem eventKey="1.3">Something else here</MenuItem>
           <MenuItem divider />
           <MenuItem eventKey="1.4">Separated link</MenuItem>
