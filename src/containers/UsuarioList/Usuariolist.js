@@ -1,8 +1,14 @@
-import React from "react";
+import React from "react"
 import { Table } from "react-bootstrap"
-import "./UsuarioList.css";
+import "./UsuarioList.css"
+// import AuthClient from "../../services/authentication/AuthClient"
 
 export default function UsuarioList() {
+  // async function userList() {
+  //  const users: [] = await AuthClient.get('/users')
+  //  console.log(users)
+  // }
+  // userList()
   return (
     <div className="Home">
       <div className="lander">
@@ -42,4 +48,5 @@ export default function UsuarioList() {
     </div>
   </div>
   );
+  
 }
