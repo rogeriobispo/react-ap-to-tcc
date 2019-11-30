@@ -21,7 +21,7 @@ export default function Login(props) {
         login(response.data.token)
          props.history.push('/Home')
     } catch (e) {
-      window.flash('Usuário ou senha Inválida', 'error')
+      window.flash(`Usuário ou senha Inválida`, 'error')
     }
   }
 
