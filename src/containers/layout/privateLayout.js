@@ -1,10 +1,14 @@
-import React from 'react';
-import { Link } from "react-router-dom";
-import { Nav, Navbar, NavItem, NavDropdown, MenuItem} from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import React from 'react'
+import { Link } from "react-router-dom"
+import { Nav, Navbar, NavItem, NavDropdown, MenuItem} from "react-bootstrap"
+import { LinkContainer } from "react-router-bootstrap"
+import decoded from 'jwt-decode'
 import './privatelayout.css'
+import { getToken } from '../../services/authentication/auth'
 
 export default function PrivateLayout(prop) {
+   const admin = decoded(getToken()).roles.includes('Admin')
+   console.log(admin)
   function handleSelect(eventKey, event) {
     // event.preventDefault();
     // alert(`selected ${eventKey}`);
@@ -36,6 +40,7 @@ export default function PrivateLayout(prop) {
   </Navbar>
     {/* menu */}
     <Nav bsStyle="tabs" activeKey="1" onSelect={k => handleSelect(k)} className="menu borderRightLeft">
+      { admin &&
         <NavDropdown eventKey="1" title="Usuário" id="nav-dropdown">
           <MenuItem eventKey="1.1"><Link to="/usuarioForm">Criar</Link></MenuItem>
           <MenuItem eventKey="1.2"><Link to="/usuarioList">Listar</Link></MenuItem>
@@ -43,6 +48,8 @@ export default function PrivateLayout(prop) {
           <MenuItem divider />
           <MenuItem eventKey="1.4">Separated link</MenuItem>
         </NavDropdown>
+     
+      }
         <NavDropdown eventKey="2" title="Cursos" id="nav-dropdown">
           <MenuItem eventKey="2.1">Criar</MenuItem>
           <MenuItem eventKey="2.2">Listar</MenuItem>
