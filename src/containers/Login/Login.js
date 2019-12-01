@@ -7,17 +7,18 @@ import PublicLayout from "../layout/publicLayout"
 import "./Login.css";
 
 export default function Login(props) {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("")
+  const [password, setPassword] = useState("")
   
   function validateForm() {
     return userName.length > 5 && password.length > 5;
   }
 
    async function handleSubmit(event) {
-     event.preventDefault()
+    event.preventDefault()
     try {
         const response = await AuthClient.post("/login", { "userName": userName, 	"password": password })
+        
         login(response.data.token)
          props.history.push('/Home')
     } catch (e) {

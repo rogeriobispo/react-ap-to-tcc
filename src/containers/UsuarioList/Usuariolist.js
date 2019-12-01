@@ -1,52 +1,56 @@
 import React from "react"
-import { Table } from "react-bootstrap"
+import { Table, Glyphicon } from "react-bootstrap"
 import "./UsuarioList.css"
-// import AuthClient from "../../services/authentication/AuthClient"
+import AuthClient from "../../services/authentication/AuthClient"
 
-export default function UsuarioList() {
-  // async function userList() {
-  //  const users: [] = await AuthClient.get('/users')
-  //  console.log(users)
-  // }
-  // userList()
-  return (
-    <div className="Home">
-      <div className="lander">
-      <Table responsive>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Table heading</th>
-            <th>Table heading</th>
-            <th>Table heading</th>
-            <th>Table heading</th>
-            <th>Table heading</th>
-            <th>Table heading</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-          </tr>
-        </tbody>
-      </Table>
-    </div>
-  </div>
+export default class  UsuarioList extends React.Component {
+  state = {
+    users: []
+  }
+
+  componentDidMount() {
+    AuthClient.get('/users')
+      .then(res => {
+        const users = res.data
+        this.setState({ users })
+      })
+  }
+
+  isAdmin(roles){
+    return roles.includes('Admin')
+  }
+  userDetail(user){
+    return(
+    <tr>
+       <td>{user.firstName}</td>
+       <td>{user.lastName}</td>
+       <td>{user.userName}</td>
+       <td>{user.createdAt}</td>
+       <td>{user.updatedAt}</td>
+       <td>{this.isAdmin(user.roles)? <Glyphicon glyph="ok" /> : ''}</td>
+    </tr>)
+  }
+  render() {
+    return (
+        <div className="Home">
+          <div className="lander">
+          <Table responsive id="userTableList">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>SobreNome</th>
+                <th>Username</th>
+                <th>Criado Em</th>
+                <th>Atualizado em</th>
+                <th>Admin?</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.users.map(user => this.userDetail(user))}
+            </tbody>
+          </Table>
+        </div>
+      </div>
   );
-  
+}
 }
