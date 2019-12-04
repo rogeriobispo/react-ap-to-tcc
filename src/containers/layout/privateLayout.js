@@ -4,7 +4,7 @@ import { Nav, Navbar, NavItem, NavDropdown, MenuItem} from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
 
 import './privatelayout.css'
-import { admin } from '../../services/authentication/auth'
+import { admin, user } from '../../services/authentication/auth'
 
 export default function PrivateLayout(props) {
   
@@ -20,10 +20,9 @@ export default function PrivateLayout(props) {
     <Navbar.Collapse>
       <Nav pullRight>
       { props.isAuthenticated ? 
-              <LinkContainer to="/logout">
+            <LinkContainer to="/logout">
               <NavItem onClick={()=> props.handleLogout()} >Logout</NavItem>
-            </LinkContainer> :
-            
+            </LinkContainer>:
             <LinkContainer to="/">
               <NavItem> Login</NavItem>
             </LinkContainer>
@@ -52,12 +51,14 @@ export default function PrivateLayout(props) {
         {/* <NavItem eventKey="3" href="/home">
           NavItem 1 content
         </NavItem>
-        <NavItem eventKey="4" title="Item">
+        <NavItem eventKey="4" title="Item"  disabled>
           NavItem 2 content
-        </NavItem>
-        <NavItem eventKey="5" disabled>
-          NavItem 3 content
-        </NavItem> */}
+        </NavItem>*/} 
+        <Nav pullRight>
+          <NavItem href={"/usuario/".concat(user()._id)}>
+            Trocar senha
+          </NavItem>
+        </Nav>
       </Nav>
     {/* fim menu */}
   
