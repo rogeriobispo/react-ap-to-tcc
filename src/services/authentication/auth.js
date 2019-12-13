@@ -18,9 +18,11 @@ export const admin = () => {
 export const user = () => {
   return decodeToken()
 }
+
 function decodeToken() {
   return decoded(getToken())
 }
 export const logout = () => {
   localStorage.removeItem(TOKEN_KEY)
+  console.log("logout: authenticated: ",isAuthenticated())
 };

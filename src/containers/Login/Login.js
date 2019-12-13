@@ -53,5 +53,5 @@ export default function Login(props) {
         </form>
       </div>
     </PublicLayout>
-  );
+  )
 }

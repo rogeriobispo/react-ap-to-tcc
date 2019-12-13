@@ -4,7 +4,7 @@ import { Nav, Navbar, NavItem, NavDropdown, MenuItem} from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
 
 import './privatelayout.css'
-import { admin, user } from '../../services/authentication/auth'
+import { admin } from '../../services/authentication/auth'
 
 export default function PrivateLayout(props) {
   
@@ -55,7 +55,7 @@ export default function PrivateLayout(props) {
           NavItem 2 content
         </NavItem>*/} 
         <Nav pullRight>
-          <NavItem href={"/usuario/".concat(user()._id)}>
+          <NavItem href={"/usuario/password"}>
             Trocar senha
           </NavItem>
         </Nav>
