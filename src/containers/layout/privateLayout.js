@@ -34,7 +34,7 @@ export default function PrivateLayout(props) {
     <Nav bsStyle="tabs" activeKey="1" className="menu borderRightLeft">
       { admin() &&
         <NavDropdown eventKey="1" title="Usuário" id="nav-dropdown">
-          <MenuItem eventKey="1.1" href="/usuarioForm" >Criar</MenuItem>
+          <MenuItem eventKey="1.1" href=" /usuarioForm" >Criar</MenuItem>
           <MenuItem eventKey="1.2" href="/usuarioList">Listar</MenuItem>
           <MenuItem eventKey="1.3">Something else here</MenuItem>
           <MenuItem divider />
