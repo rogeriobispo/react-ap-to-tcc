@@ -11,7 +11,6 @@ export const login = token => {
 }
 
 export const admin = () => {
-  console.dir(decodeToken())
   return decodeToken().roles.includes('Admin')
 }
 
@@ -24,5 +23,4 @@ function decodeToken() {
 }
 export const logout = () => {
   localStorage.removeItem(TOKEN_KEY)
-  console.log("logout: authenticated: ",isAuthenticated())
 };

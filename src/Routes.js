@@ -20,7 +20,7 @@ export default function Routes() {
         <Route path="/" exact component={Login}/>
         <Route path="/logout" exact component={Logout}/> 
         <Route path='/notAutorized' component={NotAutorized}/>
-        { !isAuthenticated() ? <Redirect to="/notAutorized" /> : console.log('Autenticado') }
+        { !isAuthenticated() ? <Redirect to="/notAutorized" /> : '' }
         <PrivateRoute path="/home" exact component={Home} /> 
         <PrivateRoute path="/usuarioForm" exact component={UsuarioForm} />
         <PrivateRoute path="/usuarioList" exact component={UsuarioList} />

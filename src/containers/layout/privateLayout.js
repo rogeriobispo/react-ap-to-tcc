@@ -2,12 +2,12 @@ import React from 'react'
 import { Link } from "react-router-dom"
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem} from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
+import { user } from '../../services/authentication/auth'
 
 import './privatelayout.css'
 import { admin } from '../../services/authentication/auth'
 
 export default function PrivateLayout(props) {
-  
   return (
     <div className="App container">
     <Navbar fluid collapseOnSelect className="barSup  borderRightLeft">
@@ -55,9 +55,12 @@ export default function PrivateLayout(props) {
           NavItem 2 content
         </NavItem>*/} 
         <Nav pullRight>
-          <NavItem href={"/usuario/password"}>
-            Trocar senha
-          </NavItem>
+            <NavItem>
+              <Link to={{pathname: `/usuario/password`, user: user()  }}>
+                Trocar senha
+              </Link>
+            </NavItem>
+          
         </Nav>
       </Nav>
     {/* fim menu */}

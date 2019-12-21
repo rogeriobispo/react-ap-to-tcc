@@ -3,29 +3,30 @@ import { Form, FormGroup, Col, ControlLabel, FormControl, Tooltip, Button} from 
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-
 import AuthClient from "../../services/authentication/AuthClient"
-import { user } from '../../services/authentication/auth'
 import "./TrocaSenha.css";
 
 export default function trocaSenha(props) {
-
+  const user = props.location.user
+  const username = user.username
   return (
     
      <Formik
         initialValues={{ password: "", confirmPassword: ""}}
+            
         onSubmit={async values => {
         try {
+             const userId = user._id
              
-              await AuthClient.post("/users/password", 
-              { "userName": user().userName, 	"newPassword": values.password })
+              await AuthClient.post(`/users/${userId}/password`, 
+              { "password": values.password })
               
                window.flash(`Senha alterada com sucesso`, 'success')
                setTimeout(() => {
                   window.location.href = '/home'
             }, 2000);
-              } catch (e) {
-             window.flash(`Não foi possivel alterar o password`, 'error')
+            } catch (e) {
+              window.flash(`Não foi possivel alterar o password`, 'error')
           }
         }}
         validationSchema={Yup.object().shape({
@@ -37,7 +38,7 @@ export default function trocaSenha(props) {
             .required("password é obrigatório")
             .test('is-true', 'Password divergente', function(confirmPassword){ return this.parent.password === confirmPassword })
         })}
-      >
+      > 
         {props => {
           const {
             values,
@@ -50,9 +51,12 @@ export default function trocaSenha(props) {
           } = props;
           
           return (
+            
              <div className="Home">
                 <div className="lander">
-          
+                    <span>
+                      Trocando senha de: {username} 
+                    </span>      
                     <Form horizontal onSubmit={handleSubmit}>
                         {/* inicio Password */}
                             <FormGroup controlId="password">
@@ -124,7 +128,6 @@ export default function trocaSenha(props) {
         }
         }
       </Formik>
-   
   );
   
 }

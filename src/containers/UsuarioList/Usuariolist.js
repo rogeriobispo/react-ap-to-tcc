@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from "react-router-dom";
 import { Table, Glyphicon } from "react-bootstrap"
 import "./UsuarioList.css"
 import AuthClient from "../../services/authentication/AuthClient"
@@ -24,10 +25,11 @@ export default class  UsuarioList extends React.Component {
     <tr>
        <td>{user.firstName}</td>
        <td>{user.lastName}</td>
-       <td>{user.userName}</td>
+       <td>{user.username}</td>
        <td>{user.createdAt}</td>
        <td>{user.updatedAt}</td>
        <td>{this.isAdmin(user.roles)? <Glyphicon glyph="ok" /> : ''}</td>
+       <td><Link to={{pathname: `/usuario/password`, user: user  }}>Trocar Senha</Link></td>
     </tr>)
   }
   render() {
@@ -44,6 +46,7 @@ export default class  UsuarioList extends React.Component {
                 <th>Criado Em</th>
                 <th>Atualizado em</th>
                 <th>Admin?</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>

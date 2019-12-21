@@ -7,17 +7,17 @@ import PublicLayout from "../layout/publicLayout"
 import "./Login.css";
 
 export default function Login(props) {
-  const [userName, setUserName] = useState("")
+  const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   
   function validateForm() {
-    return userName.length > 5 && password.length > 5;
+    return username.length > 5 && password.length > 5;
   }
 
    async function handleSubmit(event) {
     event.preventDefault()
     try {
-        const response = await AuthClient.post("/login", { "userName": userName, 	"password": password })
+        const response = await AuthClient.post("/login", { "username": username, 	"password": password })
         
         login(response.data.token)
          props.history.push('/Home')
@@ -30,13 +30,13 @@ export default function Login(props) {
     <PublicLayout isAuthenticated={  false } >
       <div className="Login">
         <form  onSubmit={handleSubmit}>
-          <FormGroup controlId="userName" bsSize="large">
+          <FormGroup controlId="username" bsSize="large">
             <ControlLabel>Usuário</ControlLabel>
             <FormControl
               autoFocus
               type="text"
-              value={userName}
-              onChange={e => setUserName(e.target.value)}
+              value={username}
+              onChange={e => setUsername(e.target.value)}
             />
           </FormGroup>
           <FormGroup controlId="password" bsSize="large">
