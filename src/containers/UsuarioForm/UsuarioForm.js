@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, FormGroup, Col, ControlLabel, FormControl, Tooltip, Button} from "react-bootstrap"
 
+import AuthClient from "../../services/authentication/AuthClient"
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -9,9 +10,30 @@ export default function UsuarioForm() {
        <Formik
           initialValues={{ email: "", nome: "", sobreNome: "", usuario: "", password: "", confirmPassword: "", admin: false}}
           onSubmit={async user => {
-            await new Promise(resolve => setTimeout(resolve, 500));
-            alert(JSON.stringify(user, null, 2));
-          }}
+            try {
+                 const roleAdmin = user.admin ? 'Admin': ''
+                 await AuthClient.post(`/users`, {
+                    "firstName": user.nome,
+                    "lastName": user.sobreNome,
+                    "email": user.email,
+                    "username": user.usuario,
+                    "password": user.password,
+                    "apps": [],
+                    "roles": [roleAdmin]
+                  
+                
+                 })
+                  
+                   window.flash(`Senha alterada com sucesso`, 'success')
+                   setTimeout(() => {
+                      window.location.href = '/usuarioList'
+                }, 2000);
+                } catch (e) {
+                  console.dir(e)
+                  window.flash(`Não foi possivel alterar o password`, 'error')
+              }
+            }
+          }
           validationSchema={Yup.object().shape({
             nome: Yup.string()
               .min(3, "Nome menor que 3 caracteres")

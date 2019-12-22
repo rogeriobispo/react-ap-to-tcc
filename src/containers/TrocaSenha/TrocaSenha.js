@@ -28,7 +28,8 @@ export default function trocaSenha(props) {
             } catch (e) {
               window.flash(`Não foi possivel alterar o password`, 'error')
           }
-        }}
+        }
+      }
         validationSchema={Yup.object().shape({
           password: Yup.string()
             .min(5, 'Senha deve ser maior que 5')
@@ -55,7 +56,7 @@ export default function trocaSenha(props) {
              <div className="Home">
                 <div className="lander">
                     <span>
-                      Trocando senha de: {username} 
+                      Usuario: {username} 
                     </span>      
                     <Form horizontal onSubmit={handleSubmit}>
                         {/* inicio Password */}
