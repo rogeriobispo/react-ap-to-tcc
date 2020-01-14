@@ -9,7 +9,7 @@ export default function PublicLayout(prop) {
     <Navbar fluid collapseOnSelect>
     <Navbar.Header>
       <Navbar.Brand>
-        <Link to="/">Rogério ReactAPP</Link>
+        <Link to="/">Clinica Médica</Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>

@@ -4,14 +4,14 @@ import { Redirect } from 'react-router'
 
 import Home from './containers/Home/Home';
 import UsuarioForm from './containers/UsuarioForm/UsuarioForm'
-import NotFound from "./containers/NotFound/NotFound";
-import NotAutorized from './containers/NotAutorized/NotAutorized'
-import Login from './containers/Login/Login';
-import Logout from './containers/logout/logout'
 import PrivateRoute from "./containers/privateRoute/privateRoute";
+import NotAutorized from './containers/NotAutorized/NotAutorized';
+import { isAuthenticated } from './services/authentication/auth';
 import UsuarioList from "./containers/UsuarioList/Usuariolist";
-import TrocaSenha from './containers/TrocaSenha/TrocaSenha'
-import { isAuthenticated } from './services/authentication/auth'
+import TrocaSenha from './containers/TrocaSenha/TrocaSenha';
+import NotFound from "./containers/NotFound/NotFound";
+import Logout from './containers/logout/logout';
+import Login from './containers/Login/Login';
 
 export default function Routes() {
  
@@ -20,12 +20,12 @@ export default function Routes() {
         <Route path="/" exact component={Login}/>
         <Route path="/logout" exact component={Logout}/> 
         <Route path='/notAutorized' component={NotAutorized}/>
-        { !isAuthenticated() ? <Redirect to="/notAutorized" /> : '' }
         <PrivateRoute path="/home" exact component={Home} /> 
         <PrivateRoute path="/usuarioForm" exact component={UsuarioForm} />
         <PrivateRoute path="/usuarioList" exact component={UsuarioList} />
         <PrivateRoute path={"/usuario/password"} exact component={TrocaSenha} />
         <Route component={NotFound} />    
+        { !isAuthenticated() ? <Redirect to="/notAutorized" /> : '' }
      </Switch>
     
   ) 

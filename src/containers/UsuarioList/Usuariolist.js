@@ -29,8 +29,7 @@ export default class  UsuarioList extends React.Component {
        <td>{user.createdAt}</td>
        <td>{user.updatedAt}</td>
        <td>{this.isAdmin(user.roles)? <Glyphicon glyph="ok" /> : ''}</td>
-       <td>{user.blocked ? <Glyphicon glyph="ok" /> : ''}</td>
-    <td>{user.blocked? '' : <Link to={{pathname: `/usuario/password`, user: user  }}>Trocar Senha</Link>}</td>
+    <td>{user.blocked? '' : <Link to={{pathname: `/usuario/password`, user: user  }}> Trocar Senha</Link>}</td>
     </tr>)
   }
   render() {
@@ -47,7 +46,6 @@ export default class  UsuarioList extends React.Component {
                 <th>Criado Em</th>
                 <th>Atualizado em</th>
                 <th>Admin?</th>
-                <th>bloqueado?</th>
                 <th></th>
               </tr>
             </thead>
@@ -55,7 +53,6 @@ export default class  UsuarioList extends React.Component {
               {this.state.users.map(user => this.userDetail(user))}
             </tbody>
           </Table>
-          <div>* implementar bloqueio de usuário</div>
         </div>
       </div>
   );

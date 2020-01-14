@@ -1,7 +1,8 @@
 import React from "react";
-import { isAuthenticated, logout } from "../../services/authentication/auth"
-import { Route, Redirect } from "react-router-dom";
 import PrivateLayout from "../layout/privateLayout";
+import { Route, Redirect } from "react-router-dom";
+
+import { isAuthenticated, logout } from "../../services/authentication/auth"
 
 export default function PrivateRoute(props) {
   function handleLogout() {

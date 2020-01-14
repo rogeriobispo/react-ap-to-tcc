@@ -8,4 +8,4 @@ const AuthClient = axios.create({
     headers: {'x-access-token': getToken() }
 })
 
-export default AuthClient 
+export default AuthClient

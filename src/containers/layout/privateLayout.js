@@ -13,7 +13,7 @@ export default function PrivateLayout(props) {
     <Navbar fluid collapseOnSelect className="barSup  borderRightLeft">
     <Navbar.Header>
       <Navbar.Brand>
-        <Link to="/home">Rogério ReactAPP</Link>
+        <Link to="/home">Clinica Médica</Link>
       </Navbar.Brand>
       <Navbar.Toggle />
     </Navbar.Header>
@@ -21,7 +21,9 @@ export default function PrivateLayout(props) {
       <Nav pullRight>
       { props.isAuthenticated ? 
             <LinkContainer to="/logout">
-              <NavItem onClick={()=> props.handleLogout()} >Logout</NavItem>
+              <NavItem onClick={()=> props.handleLogout()}>
+                { props.isAuthenticated ? <span>{user().username}</span>: '' } - Logout 
+                </NavItem>
             </LinkContainer>:
             <LinkContainer to="/">
               <NavItem> Login</NavItem>
@@ -41,7 +43,7 @@ export default function PrivateLayout(props) {
           <MenuItem eventKey="1.4">Separated link</MenuItem>
         </NavDropdown>
       }
-        <NavDropdown eventKey="2" title="Cursos" id="nav-dropdown">
+        <NavDropdown eventKey="2" title="Médico" id="nav-dropdown">
           <MenuItem eventKey="2.1">Criar</MenuItem>
           <MenuItem eventKey="2.2">Listar</MenuItem>
           <MenuItem eventKey="2.3">Something else here</MenuItem>
