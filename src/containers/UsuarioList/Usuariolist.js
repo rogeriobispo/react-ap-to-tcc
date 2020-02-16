@@ -1,16 +1,16 @@
-import React from "react"
+import React, { Component } from "react"
 import { Link } from "react-router-dom";
 import { Table, Glyphicon } from "react-bootstrap"
 import "./UsuarioList.css"
-import AuthClient from "../../services/authentication/AuthClient"
+import ClinicClient from "../../services/Clinic/ClinicClient"
 
-export default class  UsuarioList extends React.Component {
+export default class  UsuarioList extends Component {
   state = {
     users: []
   }
 
   componentDidMount() {
-    AuthClient.get('/users')
+    ClinicClient.get('/users')
       .then(res => {
         const users = res.data
         this.setState({ users })
@@ -41,7 +41,7 @@ export default class  UsuarioList extends React.Component {
             <thead>
               <tr>
                 <th>Nome</th>
-                <th>SobreNome</th>
+                <th>Sobre nome</th>
                 <th>Username</th>
                 <th>Criado Em</th>
                 <th>Atualizado em</th>

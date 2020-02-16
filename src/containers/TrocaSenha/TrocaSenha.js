@@ -3,7 +3,7 @@ import { Form, FormGroup, Col, ControlLabel, FormControl, Tooltip, Button} from 
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-import AuthClient from "../../services/authentication/AuthClient"
+import ClinicClient from "../../services/Clinic/ClinicClient"
 import "./TrocaSenha.css";
 
 export default function trocaSenha(props) {
@@ -18,7 +18,7 @@ export default function trocaSenha(props) {
         try {
              const userId = user._id
              
-              await AuthClient.post(`/users/${userId}/password`, 
+              await ClinicClient.post(`/users/${userId}/password`, 
               { "password": values.password })
               
                window.flash(`Senha alterada com sucesso`, 'success')

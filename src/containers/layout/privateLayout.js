@@ -44,8 +44,7 @@ export default function PrivateLayout(props) {
         </NavDropdown>
       }
         <NavDropdown eventKey="2" title="Médico" id="nav-dropdown">
-          <MenuItem eventKey="2.1">Criar</MenuItem>
-          <MenuItem eventKey="2.2">Listar</MenuItem>
+          <MenuItem eventKey="2.2" href="/MedicoList">Listar</MenuItem>
           <MenuItem eventKey="2.3">Something else here</MenuItem>
           <MenuItem divider />
           <MenuItem eventKey="2.4">Separated link</MenuItem>

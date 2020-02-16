@@ -1,18 +1,31 @@
-import React from "react";
+import React, { Component } from "react";
 import { Form, FormGroup, Col, ControlLabel, FormControl, Tooltip, Button} from "react-bootstrap"
 
-import AuthClient from "../../services/authentication/AuthClient"
+import ClinicClient from "../../services/Clinic/ClinicClient"
 import { Formik } from "formik";
 import * as Yup from "yup";
 
-export default function UsuarioForm() {
-    return (
+export default class  UsuarioForm extends Component {
+  
+  async especialidades(){
+     const clinics =  await ClinicClient.get(`/especialty`) 
+     return clinics.data 
+  }
+
+  especiliadesOptions(value){
+    return(
+      <option value={value}>{value}</option>
+    )
+  }
+  render(){
+     return (
        <Formik
-          initialValues={{ email: "", nome: "", sobreNome: "", usuario: "", password: "", confirmPassword: "", admin: false}}
+          initialValues={{ email: "", nome: "", sobreNome: "", usuario: "", password: "", confirmPassword: "", admin: false, doctor: false, crm: "", especialidade: "Clinico Geral"}}
+
           onSubmit={async user => {
             try {
                  const roleAdmin = user.admin ? 'Admin': ''
-                 await AuthClient.post(`/users`, {
+                 await ClinicClient.post(`/users`, {
                     "firstName": user.nome,
                     "lastName": user.sobreNome,
                     "email": user.email,
@@ -39,8 +52,8 @@ export default function UsuarioForm() {
               .min(3, "Nome menor que 3 caracteres")
               .required("Nome é Obrigatório"),
             sobreNome: Yup.string()
-              .min(3, "sobreNome menor que 3 caracteres")
-              .required("sobreNome é Obrigatório"),
+              .min(3, "sobre nome menor que 3 caracteres")
+              .required("sobre nome é Obrigatório"),
             usuario: Yup.string()
               .matches(/^[a-z]+\.[a-z]+$/, {
                 message:'formato errado exemplo: beltrano.silva',
@@ -222,10 +235,61 @@ export default function UsuarioForm() {
                                 </Col>
                               </FormGroup>
                           {/* fim Password */}
+                          {/* Inicio campos do medico */}
+                          { values.doctor && (
+                              <FormGroup controlId="doctorField">
+                                {/* INICIO CRM */}
+                                <Col componentClass={ControlLabel} sm={2}>
+                                  CRM
+                                </Col>
+                                <Col sm={4}>
+                                <FormControl id="crm"
+                                               placeholder="crm"
+                                               type="text"
+                                               value={values.crm}
+                                               onChange={handleChange}
+                                               onBlur={handleBlur}
+                                               className={
+                                                 errors.crm && touched.crm
+                                                   ? "text-input error"
+                                                   : "text-input"
+                                                }  
+                                  />
+                               {errors.crm && touched.crm && (
+                                <Tooltip placement="bottom" className="in" id="tooltip-right">{errors.crm}</Tooltip>
+                              )}
+                                </Col>
+                                {/* FIM CRM */}
+                                {/* INICIO ESPECIALIDADE */}
+                                <Col componentClass={ControlLabel} sm={2}>
+                                  Especialidade
+                                </Col>
+                                <Col sm={4}>
+                                <FormControl componentClass="select" placeholder="select">
+                                {
+                                  this.especialidades()
+                                }      
+                                  </FormControl>
+                                </Col>
+                                {/* FIM ESPECIALIDADE */}
+                              </FormGroup>
+                            )
+                          }
+                          {/* fim campos do médico */}
                           {/* inicio admin */}
-                               <FormGroup controlId="admin">
-                                <Col smOffset={0} sm={0}>
-                                Admin?
+                               <FormGroup controlId="doctorAdmin">
+                                <Col sm={6}>
+                                Medico? {values.doctor} 
+                                <FormControl id="doctor"
+                                             type="checkbox"
+                                              value={values.doctor}
+                                              onChange={handleChange}
+                                              onBlur={handleBlur}
+
+                                   />
+                                </Col>
+                                <Col sm={6}>
+                                Admin? 
                                 <FormControl id="admin"
                                              type="checkbox"
                                               value={values.admin}
@@ -253,5 +317,5 @@ export default function UsuarioForm() {
           }}
         </Formik>
     );
-
+  }
 }
