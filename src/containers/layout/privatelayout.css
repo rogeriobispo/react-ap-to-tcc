@@ -21,3 +21,7 @@ h5{
     display: inline-block;
     border-left: 10px;
 }
+
+.changePassword{
+    margin-top: 10px;
+}

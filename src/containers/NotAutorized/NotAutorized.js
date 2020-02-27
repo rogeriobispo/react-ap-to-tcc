@@ -5,7 +5,7 @@ import PublicLayout from '../layout/publicLayout'
 
 export default function NotAutorized() {
   return (
-    <PublicLayout isAuthenticated={  false } >
+    <PublicLayout isAuthenticated={false} >
       <div className="NotAutorized">
         <h3>Acesso não autorizada</h3>
       </div>
