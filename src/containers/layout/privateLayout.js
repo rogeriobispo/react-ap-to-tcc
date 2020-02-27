@@ -5,7 +5,7 @@ import { LinkContainer } from "react-router-bootstrap"
 import { user } from '../../services/authentication/auth'
 
 import './privatelayout.css'
-import { admin } from '../../services/authentication/auth'
+import { admin, atendent } from '../../services/authentication/auth'
 
 export default function PrivateLayout(props) {
   const userObject = user()
@@ -44,12 +44,14 @@ export default function PrivateLayout(props) {
             <MenuItem eventKey="1.4">Separated link</MenuItem>
           </NavDropdown>
         }
-        <NavDropdown eventKey="2" title="Médico" id="nav-dropdown">
-          <MenuItem eventKey="2.2" href="/MedicoList">Listar</MenuItem>
-          <MenuItem eventKey="2.3">Something else here</MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey="2.4">Separated link</MenuItem>
-        </NavDropdown>
+        {(admin() || atendent()) &&
+          < NavDropdown eventKey="2" title="Médico" id="nav-dropdown">
+            <MenuItem eventKey="2.2" href="/MedicoList">Listar</MenuItem>
+            <MenuItem eventKey="2.3">Something else here</MenuItem>
+            <MenuItem divider />
+            <MenuItem eventKey="2.4">Separated link</MenuItem>
+          </NavDropdown>
+        }
         {/* <NavItem eventKey="3" href="/home">
           NavItem 1 content
         </NavItem>
@@ -67,6 +69,6 @@ export default function PrivateLayout(props) {
       {/* fim menu */}
 
       {props.children}
-    </div>
+    </div >
   );
 }

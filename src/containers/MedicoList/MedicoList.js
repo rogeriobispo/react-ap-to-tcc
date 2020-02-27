@@ -9,20 +9,16 @@ export default class MedicoList extends Component {
   }
 
   async componentDidMount() {
-    const x = await ClinicClient.get('/doctors')
-    alert(x)
-    // .then(res => {
-    //   console.log(res)
-    //   const doctors = res.data
-    //   this.setState({ doctors })
-    // })
+    const response = await ClinicClient.get('/doctors')
+
+    this.setState({ doctors: response.data })
   }
 
   userDetail(doctor) {
     return (
       <tr>
         <td>{doctor.name}</td>
-        <td>{doctor.specialty}</td>
+        <td>{doctor.specialty.name}</td>
         <td>{doctor.crm}</td>
       </tr>)
   }

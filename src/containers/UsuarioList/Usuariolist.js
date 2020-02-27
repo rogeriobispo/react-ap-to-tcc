@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Table, Glyphicon } from "react-bootstrap"
 import "./UsuarioList.css"
 import ClinicClient from "../../services/Clinic/ClinicClient"
+import { format } from 'date-fns'
 
 export default class UsuarioList extends Component {
   state = {
@@ -29,8 +30,8 @@ export default class UsuarioList extends Component {
       <tr>
         <td>{user.name}</td>
         <td>{user.email}</td>
-        <td>{user.created_at}</td>
-        <td>{user.updated_at}</td>
+        <td>{format(new Date(user.created_at), 'dd/MM/yyyy')}</td>
+        <td>{format(new Date(user.updated_at), 'dd/MM/yyyy')}</td>
         <td>{this.isAdmin(user.roles) ? <Glyphicon glyph="ok" /> : ''}</td>
         <td><Link to={{ pathname: `/usuario/password`, user: user }}> Trocar Senha</Link></td>
       </tr>)
