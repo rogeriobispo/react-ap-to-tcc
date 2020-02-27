@@ -23,7 +23,7 @@ export default function PrivateLayout(props) {
             {props.isAuthenticated ?
               <LinkContainer to="/logout">
                 <NavItem onClick={() => props.handleLogout()}>
-                  {props.isAuthenticated ? <span>{user().username}</span> : ''} - Logout
+                  {props.isAuthenticated ? <span>{user().name.split(' ')[0]}</span> : ''} - Logout
                 </NavItem>
               </LinkContainer> :
               <LinkContainer to="/">

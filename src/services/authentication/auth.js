@@ -12,6 +12,7 @@ export const login = token => localStorage.setItem(TOKEN_KEY, token)
 export const admin = () => decodeToken().user.roles.includes('Admin')
 
 
+
 export const user = () => decodeToken().user
 
 
