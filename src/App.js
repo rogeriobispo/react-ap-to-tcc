@@ -2,17 +2,17 @@ import React from "react";
 
 import "./App.css";
 import Routes from "./Routes";
-import Bus from '../src/utils/Bus';
-import { Flash } from '../src/containers/message'
+import Bus from "./utils/Bus";
+import { Flash } from "./containers/message";
 
-window.flash = (message, type="success") => Bus.emit('flash', ({message, type}));
-
+window.flash = (message, type = "success") =>
+  Bus.emit("flash", { message, type });
 
 function App(props) {
-   return (
+  return (
     <div className="App container">
-      <Flash/>
-      <Routes/>
+      <Flash />
+      <Routes />
     </div>
   );
 }
