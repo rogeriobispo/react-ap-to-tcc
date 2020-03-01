@@ -2,10 +2,10 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Home from './containers/Home/Home';
-import UsuarioForm from './containers/UsuarioForm/UsuarioForm'
+import CriarUsuario from './containers/Usuario/Form/Criar'
 import PrivateRoute from "./containers/privateRoute/privateRoute";
-import UsuarioList from "./containers/UsuarioList/Usuariolist";
-import MedicoList from "./containers/MedicoList/MedicoList";
+import UsuarioList from "./containers/Usuario/List"
+import MedicoList from "./containers/Medico/List"
 
 import TrocaSenha from './containers/TrocaSenha/TrocaSenha';
 import NotFound from "./containers/NotFound/NotFound";
@@ -19,10 +19,10 @@ export default function Routes() {
             <Route path="/" exact component={Login} />
             <Route path="/logout" exact component={Logout} />
             <PrivateRoute path="/home" exact component={Home} />
-            <PrivateRoute path="/usuarioForm" exact component={UsuarioForm} />
+            <PrivateRoute path="/usuarioForm" exact component={CriarUsuario} />
             <PrivateRoute path="/usuarioList" exact component={UsuarioList} />
             <PrivateRoute path="/medicoList" exact component={MedicoList} />
-            <PrivateRoute path={"/usuario/password"} exact component={TrocaSenha} />
+            <PrivateRoute path="/usuario/password" exact component={TrocaSenha} />
             <PrivateRoute path="*" component={NotFound} />
             <Route path="*" component={NotFound} />
 

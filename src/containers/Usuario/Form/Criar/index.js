@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unused-state */
+
 import React, { Component } from 'react';
 import {
   Form,
@@ -10,42 +10,53 @@ import {
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
-import CampoNome from './Fields/CampoNome'
-import CampoEmail from './Fields/CampoEmail'
-import CampoSenha from './Fields/CampoSenha'
-import CampoConfirmacaoSenha from './Fields/CampoConfirmacaoSenha'
-import CampoCrm from './Fields/CampoCrm'
-import CampoEspecialidade from './Fields/CampoEspecialidade'
-import CamposMedicoAdmin from './Fields/CamposMedicoAdmin'
-import BtnReset from '../../components/form/BtnReset'
-import BtnSubmit from '../../components/form/btnSubmit'
-import ClinicClient from '../../services/Clinic/ClinicClient';
+import CampoNome from '../../Fields/CampoNome'
+import CampoEmail from '../../Fields/CampoEmail'
+import CampoSenha from '../../Fields/CampoSenha'
+import CampoConfirmacaoSenha from '../../Fields/CampoConfirmacaoSenha'
+import CampoCrm from '../../Fields/CampoCrm'
+import CampoEspecialidade from '../../Fields/CampoEspecialidade'
+import CamposMedicoAdmin from '../../Fields/CamposMedicoAdmin'
+import BtnReset from '../../../../components/form/BtnReset'
+import BtnSubmit from '../../../../components/form/btnSubmit'
+import ClinicClient from '../../../../services/Clinic/ClinicClient';
 
-export default class UsuarioForm extends Component {
+export default class CriarUsuario extends Component {
   constructor(props) {
     super(props);
     this.state = {
       espec: [],
-      errors: "erro padrao"
+      errors: ""
     }
   }
 
-  async componentDidMount() {
-    const spec = await ClinicClient.get(`/specialty`);
-    const items = [
-      <option key={0} value={0}>
-        Selecione
-      </option>,
-    ];
 
-    for (let i = 0; i < spec.data.length; i += 1) {
-      items.push(
-        <option key={spec.data[i].id} value={spec.data[i].id}>
-          {spec.data[i].name}
-        </option>
-      );
+  async componentDidMount() {
+    this.getSpec()
+  }
+
+  async getSpec() {
+    try {
+      const spec = await ClinicClient.get(`/specialty`);
+      const items = [
+        <option key={-1} value={-1}>
+          Selecione
+        </option>,
+      ];
+
+      for (let i = 0; i < spec.data.length; i += 1) {
+        items.push(
+          <option key={spec.data[i].id} value={spec.data[i].id}>
+            {spec.data[i].name}
+          </option>
+        );
+      }
+      this.setState({ espec: items });
+
+
+    } catch (error) {
+      this.setState({ errors: "Sistema indisponivel tente mais tarde" })
     }
-    this.setState({ espec: items });
   }
 
   render() {
@@ -59,7 +70,7 @@ export default class UsuarioForm extends Component {
           admin: false,
           doctor: false,
           crm: '',
-          especialty_id: 0,
+          especialty_id: '',
         }}
         onSubmit={async (user) => {
           try {
@@ -73,7 +84,7 @@ export default class UsuarioForm extends Component {
               admin: user.admin,
               roles: roleAdmin,
               crm: user.crm,
-              specialtyId: Number(user.especialty_id)
+              specialty_id: Number(user.especialty_id)
             });
             window.flash(`Usuario criado com sucesso`, 'success');
             setTimeout(() => {
@@ -82,7 +93,7 @@ export default class UsuarioForm extends Component {
           } catch (e) {
 
             window.flash(
-              `Erro: ${e.response.data.error}`,
+              `Erro: ${e.response.data.errors}`,
               'error'
             );
           }
@@ -99,6 +110,13 @@ export default class UsuarioForm extends Component {
             crm: Yup.string().when('doctor', (doctor, field) => {
               return doctor
                 ? field.required('Crm é obrigatório')
+                : field.notRequired();
+            }),
+            especialty_id: Yup.string().when('doctor', (doctor, field) => {
+              return doctor
+                ? field.test('is-true', 'Selecione Especialidade', (especialty) => {
+                  return (typeof especialty !== 'undefined' && Number(especialty) !== -1)
+                })
                 : field.notRequired();
             }),
             password: Yup.string()
@@ -130,6 +148,7 @@ export default class UsuarioForm extends Component {
           return (
             <div className="Home">
               <div className="lander">
+                <span className="mwarning">{this.state.errors}</span>
                 <Form horizontal onSubmit={handleSubmit}>
                   <CampoNome
                     value={values.nome}
@@ -176,8 +195,8 @@ export default class UsuarioForm extends Component {
                       />
 
                       <CampoEspecialidade
-                        onChange={handleChange}
                         value={values.especialty_id}
+                        onChange={handleChange}
                         items={this.state.espec}
                         errors={errors}
                         touched={touched}
@@ -189,8 +208,8 @@ export default class UsuarioForm extends Component {
                   <CamposMedicoAdmin
                     onChange={handleChange}
                     onBlur={handleBlur}
-                    admin={values.doctor}
-                    doctor={values.admin}
+                    admin={values.admin}
+                    doctor={values.doctor}
 
                   />
                   <FormGroup>
@@ -207,7 +226,7 @@ export default class UsuarioForm extends Component {
                   </FormGroup>
 
                 </Form>
-                {this.state.errors}
+
               </div>
             </div>
           );

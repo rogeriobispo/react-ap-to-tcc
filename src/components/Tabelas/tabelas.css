@@ -1,0 +1,15 @@
+
+.tableList {
+    margin-top: 20px;
+    border-collapse: collapse; /* CSS2 */
+    background: #ccc;
+    border: solid red 1px;
+}
+ 
+.tableList tr:nth-child(even) /* CSS3 */ {
+    background: #ddd;
+}
+
+.tableList tr.even {
+    background: red;
+}
