@@ -11,13 +11,12 @@ export default function trocaSenha(props) {
   const { id, name } = props.location.user
 
   return (
-    < Formik
-      initialValues={{ password: "", confirmPassword: "" }
-      }
+    <Formik
+      initialValues={{ password: "", confirmPassword: "" }}
 
       onSubmit={async values => {
         try {
-          console.log(id, name)
+
           await ClinicClient.put(`/users/${id}`, { "password": values.password })
 
           window.flash(`Senha alterada com sucesso`, 'success')
@@ -27,8 +26,7 @@ export default function trocaSenha(props) {
         } catch (e) {
           window.flash(`Não foi possivel alterar o password`, 'error')
         }
-      }
-      }
+      }}
       validationSchema={
         Yup.object().shape({
           password: Yup.string()
@@ -57,18 +55,20 @@ export default function trocaSenha(props) {
           <div className="Home">
             <div className="lander">
               <span>
-                Usuario: {name}
+                Usuario:
+{' '}
+                {name}
               </span>
               <Form horizontal onSubmit={handleSubmit}>
                 {/* inicio Password */}
                 <FormGroup>
-                  <Col sm={2}>
-                  </Col>
+                  <Col sm={2} />
                   <Col componentClass={ControlLabel} sm={2}>
                     Senha
-                              </Col>
+                  </Col>
                   <Col sm={4}>
-                    <FormControl id="password"
+                    <FormControl
+                      id="password"
                       bsSize="large"
                       placeholder="senha"
                       type="password"
@@ -81,7 +81,8 @@ export default function trocaSenha(props) {
                         ) : (
                             'text-input'
                           )
-                      } />
+                      }
+                    />
                     {errors.password && touched.password && (
                       <Tooltip placement="bottom" className="in" id="tooltip-right">{errors.password}</Tooltip>
                     )}
@@ -90,13 +91,13 @@ export default function trocaSenha(props) {
                 {/* fim Password */}
                 {/* inicio Password2 */}
                 <FormGroup>
-                  <Col sm={2}>
-                  </Col>
+                  <Col sm={2} />
                   <Col componentClass={ControlLabel} sm={2}>
                     Confirmação Senha
-                              </Col>
+                  </Col>
                   <Col sm={4}>
-                    <FormControl id="confirmPassword"
+                    <FormControl
+                      id="confirmPassword"
                       bsSize="large"
                       placeholder="Confirmar senha"
                       type="password"
@@ -109,7 +110,8 @@ export default function trocaSenha(props) {
                         ) : (
                             'text-input'
                           )
-                      } />
+                      }
+                    />
                     {errors.confirmPassword && touched.confirmPassword && (
                       <Tooltip placement="bottom" className="in" id="tooltip-right">{errors.confirmPassword}</Tooltip>
                     )}
@@ -127,9 +129,8 @@ export default function trocaSenha(props) {
             </div>
           </div>
         );
-      }
-      }
-    </Formik >
+      }}
+    </Formik>
   );
 
 }

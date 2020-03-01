@@ -25,7 +25,7 @@ export default class UsuarioList extends Component {
       return roles.includes('Admin')
   }
   userDetail(user) {
-    console.log(user)
+
     return (
       <tr>
         <td>{user.name}</td>
