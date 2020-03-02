@@ -36,10 +36,11 @@ function Detail(props) {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{props.user.name}</Modal.Title>
+                    <Modal.Title>{props.username.split(' ')[0]}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <h4>{JSON.stringify(props.user)}</h4>
+                    {props.userDetail}
+                    <hr />
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={handleClose}>Close</Button>

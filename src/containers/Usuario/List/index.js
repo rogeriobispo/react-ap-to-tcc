@@ -18,6 +18,48 @@ function UsuarioList() {
         })();
     }, []);
 
+    function isAdmin(roles) {
+        return roles.includes('Admin');
+    }
+
+    function userDetail(user) {
+        return (
+            <>
+                <div>
+                    <h4>
+                        Nome:
+                        {user.name}
+                    </h4>
+                    <hr />
+                    <h4>
+                        Email:
+                        {user.email}
+                    </h4>
+                    <hr />
+                    <h4>
+                        Admin?:
+                        {isAdmin(user.roles) ? <Glyphicon glyph="ok" /> : ''}
+                    </h4>
+                    <hr />
+                    <h4>
+                        {alert('Doctor', user.doctor)}
+                        {user.doctor ? (
+                            <>
+                                <Glyphicon glyph="ok" />
+                                crm: user.crm
+                            </>
+                        ) : (
+                            <>
+                                Doctor?:
+                                <Glyphicon glyph="glyphicon glyphicon-remove" />
+                            </>
+                        )}
+                    </h4>
+                </div>
+            </>
+        );
+    }
+
     function tableHead() {
         return (
             <>
@@ -38,7 +80,8 @@ function UsuarioList() {
                 <td>{format(new Date(user.created_at), 'dd/MM/yyyy')}</td>
                 <td>
                     <DetailModal
-                        user={user}
+                        userDetail={userDetail(user)}
+                        username={user.name}
                         propovalMessage={{
                             msg: 'Detalhe do usuario',
                             title: '',
