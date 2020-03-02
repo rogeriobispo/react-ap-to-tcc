@@ -5,7 +5,7 @@ import './tabelas.css'
 function Tabela(props) {
     return (
         <div>
-            <Table responsive className='tableList' striped bordered condensed hover>
+            <Table responsive className='tableList'>
                 <thead>
                     <tr>
                         {props.head}

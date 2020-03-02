@@ -48,7 +48,7 @@ export default class UsuarioList extends Component {
         <td>{user.email}</td>
         <td>{format(new Date(user.created_at), 'dd/MM/yyyy')}</td>
         <td><Glyphicon glyph='glyphicon glyphicon-eye-open' /></td>
-        <td><Link to={{ pathname: `/usuario/password`, user }}><td><Glyphicon glyph='glyphicon glyphicon-asterisk' title="Trocar senha" /></td></Link></td>
+        <td><Link to={{ pathname: `/usuario/password`, user }}><Glyphicon glyph='glyphicon glyphicon-asterisk' title="Trocar senha" /></Link></td>
       </tr>
     )
   }
