@@ -1,68 +1,70 @@
-import React, { Component } from "react"
-import { Link } from "react-router-dom";
-import { Glyphicon } from "react-bootstrap"
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Glyphicon } from 'react-bootstrap';
 
-import "./UsuarioList.css"
-import { format } from 'date-fns'
-import Tabela from '../../../components/Tabelas'
-import ClinicClient from "../../../services/Clinic/ClinicClient"
-import DetailModal from "../../../components/Modal/Detail"
+import './UsuarioList.css';
+import { format } from 'date-fns';
+import Tabela from '../../../components/Tabelas';
+import ClinicClient from '../../../services/Clinic/ClinicClient';
+import DetailModal from '../../../components/Modal/Detail';
 
-export default class UsuarioList extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      users: []
+function UsuarioList() {
+    const [users, setUser] = useState([]);
+
+    useEffect(() => {
+        (async () => {
+            const response = await ClinicClient.get('/users');
+            setUser(response.data);
+        })();
+    }, []);
+
+    function tableHead() {
+        return (
+            <>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Criado Em</th>
+                <th>Detalhes</th>
+                <th>Senha</th>
+            </>
+        );
     }
-  }
 
-  componentDidMount() {
-    ClinicClient.get('/users')
-      .then(res => {
-        const users = res.data
-        this.setState({ users })
-      })
-  }
+    function tableBody(user) {
+        return (
+            <tr>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{format(new Date(user.created_at), 'dd/MM/yyyy')}</td>
+                <td>
+                    <DetailModal
+                        user={user}
+                        propovalMessage={{
+                            msg: 'Detalhe do usuario',
+                            title: '',
+                        }}
+                    />
+                </td>
+                <td>
+                    <Link to={{ pathname: `/usuario/password`, user }}>
+                        <Glyphicon
+                            glyph="glyphicon glyphicon-asterisk"
+                            title="Trocar senha"
+                        />
+                    </Link>
+                </td>
+            </tr>
+        );
+    }
 
-  isAdmin(roles) {
-    if (!roles)
-      return false
-    return roles.includes('Admin')
-  }
-
-  tableHead() {
     return (
-      <>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Criado Em</th>
-        <th>Detalhes</th>
-        <th>Senha</th>
-      </>
-    )
-  }
-
-  tableBody(user) {
-    return (
-      <tr>
-        <td>{user.name}</td>
-        <td>{user.email}</td>
-        <td>{format(new Date(user.created_at), 'dd/MM/yyyy')}</td>
-        <td>
-          <DetailModal user={user} />
-          <Glyphicon glyph='glyphicon glyphicon-eye-open' />
-        </td>
-        <td><Link to={{ pathname: `/usuario/password`, user }}><Glyphicon glyph='glyphicon glyphicon-asterisk' title="Trocar senha" /></Link></td>
-      </tr>
-    )
-  }
-
-  render() {
-    return (
-      <>
-        <Tabela head={this.tableHead()} body={this.state.users.map(user => this.tableBody(user))} />
-      </>
-
+        <>
+            <Tabela
+                head={tableHead()}
+                body={users.map(user => tableBody(user))}
+            />
+        </>
     );
-  }
 }
+
+export default UsuarioList;
