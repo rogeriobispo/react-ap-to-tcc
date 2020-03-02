@@ -2,12 +2,12 @@
 .tableList {
     margin-top: 20px;
     border-collapse: collapse; 
-    background: #f0f0f0;
+    background-color: #ebebeb;
     border: solid red 1px;
 }
  
 .tableList tr:nth-child(even){
-    background: #ddd;
+    background-color: #ddd;
 }
 
 .tableList tr.even {

@@ -6,6 +6,7 @@ import "./UsuarioList.css"
 import { format } from 'date-fns'
 import Tabela from '../../../components/Tabelas'
 import ClinicClient from "../../../services/Clinic/ClinicClient"
+import DetailModal from "../../../components/Modal/Detail"
 
 export default class UsuarioList extends Component {
   constructor(props) {
@@ -47,7 +48,10 @@ export default class UsuarioList extends Component {
         <td>{user.name}</td>
         <td>{user.email}</td>
         <td>{format(new Date(user.created_at), 'dd/MM/yyyy')}</td>
-        <td><Glyphicon glyph='glyphicon glyphicon-eye-open' /></td>
+        <td>
+          <DetailModal user={user} />
+          <Glyphicon glyph='glyphicon glyphicon-eye-open' />
+        </td>
         <td><Link to={{ pathname: `/usuario/password`, user }}><Glyphicon glyph='glyphicon glyphicon-asterisk' title="Trocar senha" /></Link></td>
       </tr>
     )
@@ -55,7 +59,9 @@ export default class UsuarioList extends Component {
 
   render() {
     return (
-      <Tabela head={this.tableHead()} body={this.state.users.map(user => this.tableBody(user))} />
+      <>
+        <Tabela head={this.tableHead()} body={this.state.users.map(user => this.tableBody(user))} />
+      </>
 
     );
   }
