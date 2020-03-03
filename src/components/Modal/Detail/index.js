@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import {
     Popover,
     Button,
@@ -36,14 +36,18 @@ function Detail(props) {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{props.username.split(' ')[0]}</Modal.Title>
+                    <Modal.Title><strong>{props.username.split(' ')[0]}</strong></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     {props.userDetail}
                     <hr />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={handleClose}>Close</Button>
+                    {props.link}
+                    {' '}
+                    &nbsp;
+
+                    <Button onClick={handleClose} bsStyle="primary">Close</Button>
                 </Modal.Footer>
             </Modal>
         </div>

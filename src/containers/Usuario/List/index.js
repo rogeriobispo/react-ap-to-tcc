@@ -22,6 +22,12 @@ function UsuarioList() {
         return roles.includes('Admin');
     }
 
+    function editLink(user) {
+        return (
+            <Link to={`usurio/${user.id}`} className="btn btn-primary active">Editar</Link>
+        )
+    }
+
     function userDetail(user) {
         return (
             <>
@@ -38,22 +44,27 @@ function UsuarioList() {
                     <hr />
                     <h4>
                         Admin?:
-                        {isAdmin(user.roles) ? <Glyphicon glyph="ok" /> : ''}
+                        {isAdmin(user.roles) ? <Glyphicon glyph="ok" /> : <Glyphicon glyph="glyphicon glyphicon-remove" />}
                     </h4>
                     <hr />
                     <h4>
-                        {alert('Doctor', user.doctor)}
                         {user.doctor ? (
                             <>
+                                doctor?
                                 <Glyphicon glyph="ok" />
-                                crm: user.crm
+                                <hr />
+                                <h4>
+                                    crm:
+
+                                    {user.crm}
+                                </h4>
                             </>
                         ) : (
-                            <>
-                                Doctor?:
+                                <>
+                                    Doctor?:
                                 <Glyphicon glyph="glyphicon glyphicon-remove" />
-                            </>
-                        )}
+                                </>
+                            )}
                     </h4>
                 </div>
             </>
@@ -82,6 +93,7 @@ function UsuarioList() {
                     <DetailModal
                         userDetail={userDetail(user)}
                         username={user.name}
+                        link={editLink(user.id)}
                         propovalMessage={{
                             msg: 'Detalhe do usuario',
                             title: '',
