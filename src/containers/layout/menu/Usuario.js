@@ -9,7 +9,7 @@ function Usuario() {
             {admin() && (
                 <NavDropdown eventKey="1" title="Usuário" id="nav-dropdown">
                     <MenuItem eventKey="1.1">
-                        <LinkContainer to={{ pathname: "/usuarioForm" }}>
+                        <LinkContainer to={{ pathname: "/usuario" }}>
                             <NavItem>
                                 Criar
                             </NavItem>

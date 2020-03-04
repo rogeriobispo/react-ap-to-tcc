@@ -148,6 +148,7 @@ export default class CriarUsuario extends Component {
           return (
             <div className="Home">
               <div className="lander">
+
                 <span className="mwarning">{this.state.errors}</span>
                 <Form horizontal onSubmit={handleSubmit}>
                   <CampoNome

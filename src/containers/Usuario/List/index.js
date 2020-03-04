@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Glyphicon } from 'react-bootstrap';
 
-import './UsuarioList.css';
 import { format } from 'date-fns';
 import Tabela from '../../../components/Tabelas';
 import ClinicClient from '../../../services/Clinic/ClinicClient';
@@ -22,9 +21,9 @@ function UsuarioList() {
         return roles.includes('Admin');
     }
 
-    function editLink(user) {
+    function editLink(userId) {
         return (
-            <Link to={`usurio/${user.id}`} className="btn btn-primary active">Editar</Link>
+            <Link to={`usuario/${userId}`} className="btn btn-primary active">Editar</Link>
         )
     }
 

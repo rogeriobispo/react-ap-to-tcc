@@ -31,6 +31,7 @@ module.exports = {
     "react/jsx-indent-props": 0,
     'prettier/prettier': 0,
     'react/prop-types': 0,
-    'react/react-in-jsx-scope': 0
+    'react/react-in-jsx-scope': 0,
+    'no-restricted-globals': 0
   },
 };
