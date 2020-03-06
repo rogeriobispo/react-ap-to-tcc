@@ -1,22 +1,22 @@
 import React from 'react';
 import { NavDropdown, MenuItem, NavItem } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
-import { admin } from '../../../services/authentication/auth'
+import { admin, atendent } from '../../../services/authentication/auth'
 
 function Usuario() {
     return (
         <>
-            {admin() && (
-                <NavDropdown eventKey="1" title="Usuário" id="nav-dropdown">
+            {(admin() || atendent()) && (
+                <NavDropdown eventKey="1" title="Pasciente" id="nav-dropdown">
                     <MenuItem eventKey="1.1">
-                        <LinkContainer to={{ pathname: "/usuario" }}>
+                        <LinkContainer to={{ pathname: "/pasciente" }}>
                             <NavItem>
                                 Criar
                             </NavItem>
                         </LinkContainer>
                     </MenuItem>
                     <MenuItem divider />
-                    <MenuItem eventKey="1.2" href="/usuarioList">Listar</MenuItem>
+                    <MenuItem eventKey="1.2" href="/pascienteList">Listar</MenuItem>
                 </NavDropdown>
             )}
         </>

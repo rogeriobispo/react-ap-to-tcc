@@ -11,7 +11,7 @@ export const login = token => localStorage.setItem(TOKEN_KEY, token)
 
 export const admin = () => decodeToken().user.roles.includes('Admin')
 
-export const atendent = () => decodeToken().user.roles.includes('Atendent')
+export const atendent = () => decodeToken().user.roles.includes('Recepcionist')
 
 export const medic = () => decodeToken().user.doctor
 

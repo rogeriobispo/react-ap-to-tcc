@@ -8,7 +8,7 @@ function ChangePassword() {
         <>
             <Nav pullRight>
                 <div className="changePassword">
-                    <Link to={{ pathname: `/usuario/password`, user: user() }}>
+                    <Link to={{ pathname: `/usuario/${user().id}/password`, user: user() }}>
                         Trocar senha
                     </Link>
                 </div>

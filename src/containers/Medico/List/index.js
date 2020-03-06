@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { Glyphicon } from "react-bootstrap"
 import ClinicClient from "../../../services/Clinic/ClinicClient"
 import Tabelas from '../../../components/Tabelas'
 
@@ -23,7 +22,7 @@ export default class MedicoList extends Component {
         <td>{doctor.name}</td>
         <td>{doctor.specialty.name}</td>
         <td>{doctor.crm}</td>
-        <td><Glyphicon glyph='glyphicon glyphicon-eye-open' /></td>
+
       </tr>
     )
   }
@@ -34,7 +33,7 @@ export default class MedicoList extends Component {
         <th>Nome</th>
         <th>Especialidade</th>
         <th>CRM</th>
-        <th>Detalhes</th>
+
       </>
     )
   }
