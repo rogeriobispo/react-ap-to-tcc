@@ -7,17 +7,18 @@ import {
 
 import TextField from '../../../components/form/TextField'
 
-function CampoConfirmacaoSenha(props) {
+function CampoDocumento(props) {
     return (
-        <FormGroup>
+
+        <FormGroup controlId="nome">
             <Col componentClass={ControlLabel} sm={2}>
-                Confirmação Senha
+                RG
             </Col>
             <Col sm={10}>
                 <TextField
-                    id="confirmPassword"
-                    placeholder="Confirmar senha"
-                    type="password"
+                    id="rg"
+                    placeholder="rg"
+                    type="text"
                     value={props.value}
                     onChange={props.onChange}
                     onBlur={props.onBlur}
@@ -30,4 +31,4 @@ function CampoConfirmacaoSenha(props) {
     );
 }
 
-export default CampoConfirmacaoSenha
+export default CampoDocumento
