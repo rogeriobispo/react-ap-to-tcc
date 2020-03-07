@@ -18,7 +18,7 @@ import BtnReset from '../../../../components/form/BtnReset'
 import BtnSubmit from '../../../../components/form/btnSubmit'
 // import ClinicClient from '../../../../services/Clinic/ClinicClient';
 
-export default class CriarPasciente extends Component {
+export default class CriarPaciente extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -7,7 +7,7 @@ import EditarUsuario from './containers/Usuario/Form/Editar'
 import PrivateRoute from "./containers/privateRoute/privateRoute";
 import UsuarioList from "./containers/Usuario/List"
 import MedicoList from "./containers/Medico/List"
-import CriarPasciente from './containers/Pasciente/Form/Criar'
+import CriarPaciente from './containers/Paciente/Form/Criar'
 
 import TrocaSenha from './containers/TrocaSenha/TrocaSenha';
 import NotFound from "./containers/NotFound/NotFound";
@@ -26,7 +26,7 @@ export default function Routes() {
             <PrivateRoute exact path="/usuario/:id" component={EditarUsuario} />
             <PrivateRoute exact path="/usuarioList" component={UsuarioList} />
             <PrivateRoute exact path="/medicoList" component={MedicoList} />
-            <PrivateRoute exact path="/pasciente" component={CriarPasciente} />
+            <PrivateRoute exact path="/paciente" component={CriarPaciente} />
             <PrivateRoute exact path="*" component={NotFound} />
             <Route path="*" component={NotFound} />
 

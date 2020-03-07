@@ -4,7 +4,7 @@ import { Nav } from "react-bootstrap"
 import { user } from '../../../services/authentication/auth'
 import Usuario from './Usuario'
 import Medico from './Medico'
-import Pasciente from './Pasciente'
+import Paciente from './Paciente'
 
 function Menu() {
     return (
@@ -14,7 +14,7 @@ function Menu() {
             <Nav bsStyle="tabs" className="menu borderRightLeft">
                 <Usuario />
                 <Medico />
-                <Pasciente />
+                <Paciente />
 
                 <Nav pullRight>
                     <div className="changePassword">

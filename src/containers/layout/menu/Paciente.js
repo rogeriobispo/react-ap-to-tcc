@@ -7,16 +7,16 @@ function Usuario() {
     return (
         <>
             {(admin() || atendent()) && (
-                <NavDropdown eventKey="1" title="Pasciente" id="nav-dropdown">
+                <NavDropdown eventKey="1" title="Paciente" id="nav-dropdown">
                     <MenuItem eventKey="1.1">
-                        <LinkContainer to={{ pathname: "/pasciente" }}>
+                        <LinkContainer to={{ pathname: "/paciente" }}>
                             <NavItem>
                                 Criar
                             </NavItem>
                         </LinkContainer>
                     </MenuItem>
                     <MenuItem divider />
-                    <MenuItem eventKey="1.2" href="/pascienteList">Listar</MenuItem>
+                    <MenuItem eventKey="1.2" href="/pacienteList">Listar</MenuItem>
                 </NavDropdown>
             )}
         </>
