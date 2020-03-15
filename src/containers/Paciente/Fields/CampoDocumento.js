@@ -10,15 +10,16 @@ import TextField from '../../../components/form/TextField'
 function CampoDocumento(props) {
     return (
 
-        <FormGroup controlId="nome">
+        <FormGroup>
             <Col componentClass={ControlLabel} sm={2}>
-                RG
+                Documento
             </Col>
             <Col sm={10}>
                 <TextField
-                    id="rg"
-                    placeholder="rg"
+                    id="documento"
+                    placeholder="documento"
                     type="text"
+                    disabled={props.disabled}
                     value={props.value}
                     onChange={props.onChange}
                     onBlur={props.onBlur}

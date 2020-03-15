@@ -32,6 +32,7 @@ module.exports = {
     'prettier/prettier': 0,
     'react/prop-types': 0,
     'react/react-in-jsx-scope': 0,
-    'no-restricted-globals': 0
+    'no-restricted-globals': 0,
+    'no-plusplus': 0
   },
 };

@@ -3,7 +3,7 @@ import { NavDropdown, MenuItem, NavItem } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
 import { admin, atendent } from '../../../services/authentication/auth'
 
-function Usuario() {
+function Pacient() {
     return (
         <>
             {(admin() || atendent()) && (
@@ -24,4 +24,4 @@ function Usuario() {
     );
 }
 
-export default Usuario;
+export default Pacient;

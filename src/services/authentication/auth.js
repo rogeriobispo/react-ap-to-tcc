@@ -16,6 +16,7 @@ export const atendent = () => decodeToken().user.roles.includes('Recepcionist')
 export const medic = () => decodeToken().user.doctor
 
 
+
 export const user = () => decodeToken().user
 
 

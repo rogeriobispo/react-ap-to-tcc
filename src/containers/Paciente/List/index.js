@@ -1,80 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Glyphicon, Popover, OverlayTrigger } from 'react-bootstrap';
+// import { Glyphicon, Popover, OverlayTrigger } from 'react-bootstrap';
 
 import { format } from 'date-fns';
 import Tabela from '../../../components/Tabelas';
 import ClinicClient from '../../../services/Clinic/ClinicClient';
 import DetailModal from '../../../components/Modal/Detail';
 
-function UsuarioList() {
-    const [users, setUser] = useState([]);
+function PatientList() {
+    const [patient, setPatient] = useState([]);
 
     useEffect(() => {
         (async () => {
-            const response = await ClinicClient.get('/users');
-            setUser(response.data);
+            const response = await ClinicClient.get('/patients');
+            setPatient(response.data);
         })();
     }, []);
 
-    function isAdmin(roles) {
-        return roles.includes('Admin');
-    }
-
-
-    function isRecepcionista(roles) {
-        return roles.includes(' Recepcionist ');
-    }
-
-    function editLink(userId) {
+    function editLink(patientId) {
         return (
-            <Link to={`usuario/${userId}`} className="btn btn-primary active">Editar</Link>
+            <Link to={`paciente/${patientId}`} className="btn btn-primary active">Editar</Link>
         )
     }
 
-    function userDetail(user) {
+    function userDetail(patientInfo) {
         return (
             <>
                 <div>
                     <h4>
                         Nome:
-                        {user.name}
+                        {patientInfo.name}
+                        {' '}
+                        -
+                        {' '}
+                        {patientInfo.age}
                     </h4>
                     <hr />
                     <h4>
                         Email:
-                        {user.email}
+                        {patientInfo.email}
                     </h4>
                     <hr />
                     <h4>
-                        Admin?:
-                        {isAdmin(user.roles) ? <Glyphicon glyph="ok" /> : <Glyphicon glyph="glyphicon glyphicon-remove" />}
+                        Celular:
+                        {patientInfo.cel}
                     </h4>
                     <hr />
                     <h4>
-                        Recepcionista?:
-                        {isRecepcionista(user.roles) ? <Glyphicon glyph="ok" /> : <Glyphicon glyph="glyphicon glyphicon-remove" />}
+                        Telefone:
+                        {patientInfo.telefone}
                     </h4>
-                    <hr />
-                    <h4>
-                        {user.doctor ? (
-                            <>
-                                doctor?
-                                <Glyphicon glyph="ok" />
-                                <hr />
-                                <h4>
-                                    crm:
 
-                                    {user.crm}
-                                </h4>
-                            </>
-                        ) : (
-                                <>
-                                    Doctor?:
-                                <Glyphicon glyph="glyphicon glyphicon-remove" />
-                                </>
-                            )}
-                    </h4>
                 </div>
             </>
         );
@@ -87,15 +63,9 @@ function UsuarioList() {
                 <th>Email</th>
                 <th>Criado Em</th>
                 <th>Detalhes</th>
-                <th>Senha</th>
             </>
         );
     }
-    const popover = (
-        <Popover id="modal-popover" title=''>
-            Trocar Senha do usuario
-        </Popover>
-    );
 
     function tableBody(user) {
         return (
@@ -109,21 +79,10 @@ function UsuarioList() {
                         username={user.name}
                         link={editLink(user.id)}
                         propovalMessage={{
-                            msg: 'Detalhe do usuario',
+                            msg: 'Detalhe do paciente',
                             title: '',
                         }}
                     />
-                </td>
-                <td>
-                    <OverlayTrigger overlay={popover}>
-
-                        <Link to={{ pathname: encodeURI(`/usuario/password`), user }}>
-                            <Glyphicon
-                                glyph="glyphicon glyphicon-asterisk"
-                                title="Trocar senha"
-                            />
-                        </Link>
-                    </OverlayTrigger>
                 </td>
             </tr>
         );
@@ -133,10 +92,10 @@ function UsuarioList() {
         <>
             <Tabela
                 head={tableHead()}
-                body={users.map(user => tableBody(user))}
+                body={patient.map(patientInfo => tableBody(patientInfo))}
             />
         </>
     );
 }
 
-export default UsuarioList;
+export default PatientList;

@@ -10,113 +10,67 @@ import {
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+import Idade from '../../Fields/idade'
 import CampoNome from '../../Fields/CampoNome'
 import CampoEmail from '../../Fields/CampoEmail'
-import CampoCrm from '../../Fields/CampoCrm'
-import CampoEspecialidade from '../../Fields/CampoEspecialidade'
-import CamposRoles from '../../Fields/CamposMedicoAdmin'
+import CampoDocumento from '../../Fields/CampoDocumento'
+import CamposTelefones from '../../Fields/CamposTelefone'
 import BtnReset from '../../../../components/form/BtnReset'
 import BtnSubmit from '../../../../components/form/btnSubmit'
 import ClinicClient from '../../../../services/Clinic/ClinicClient';
 
-export default class CriarUsuario extends Component {
+export default class EditarPaciente extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            espec: [],
-            errors: '',
-            userToUpdate: ''
+            patient: "",
+            errors: ""
         }
     }
 
-    async componentDidMount() {
-        await this.getSpec()
-        await this.getUser()
-
+    componentDidMount() {
+        this.getPatient()
     }
 
-    async getUser() {
+    async getPatient() {
         try {
             const { id } = this.props.computedMatch.params
-            const response = await ClinicClient.get(`/users/${id}`)
-            this.setState({ userToUpdate: response.data })
+            const response = await ClinicClient.get(`/patients/${id}`)
+            this.setState({ patient: response.data })
         } catch (error) {
-            this.setState({ errors: `Usuário não localizado${error}` })
-        }
-    }
-
-    async getSpec() {
-        try {
-            const spec = await ClinicClient.get(`/specialty`);
-            const items = [
-                <option key={-1} value={-1}>
-                    Selecione
-                </option>,
-            ];
-
-            for (let i = 0; i < spec.data.length; i += 1) {
-                items.push(
-                    <option key={spec.data[i].id} value={spec.data[i].id}>
-                        {spec.data[i].name}
-                    </option>
-                );
-            }
-            this.setState({ espec: items });
-
-
-        } catch (error) {
-            this.setState({ errors: "Sistema indisponivel tente mais tarde" })
+            this.setState({ errors: `Paciente não localizado${error}` })
         }
     }
 
     render() {
-        const { userToUpdate } = this.state
-        function isAdmin(user) {
-            if (user && user.roles)
-                return user.roles.includes('Admin')
-            return false
-        }
-
-        function isRecepcionist(user) {
-            if (user && user.roles)
-                return user.roles.includes('Recepcionist')
-
-            return false
-        }
-
-
+        const paciente = this.state.patient
         return (
-
             <Formik
                 enableReinitialize
                 initialValues={{
-                    email: userToUpdate.email,
-                    nome: userToUpdate.name,
-                    admin: isAdmin(userToUpdate),
-                    atendent: isRecepcionist(userToUpdate),
-                    doctor: userToUpdate.doctor,
-                    crm: userToUpdate.crm,
-                    especialty_id: userToUpdate.specialty_id,
+                    email: paciente.email,
+                    nome: paciente.name,
+                    documento: paciente.document,
+                    tel: paciente.phone,
+                    cel: paciente.cel,
+                    idade: paciente.age
                 }}
-                onSubmit={async (user) => {
+                onSubmit={async (patient) => {
                     try {
-                        let roles = user.admin ? ' Admin ' : '';
-                        roles += user.atendent ? ' Recepcionist ' : '';
-                        await ClinicClient.put(`/users/${this.state.userToUpdate.id}`, {
-                            name: user.nome,
-                            email: user.email,
-                            doctor: user.doctor,
-                            admin: user.admin,
-                            roles,
-                            crm: user.crm,
-                            specialty_id: Number(user.especialty_id)
-                        });
-                        window.flash(`Usuario alterad com sucesso`, 'success');
+                        await ClinicClient.put('/patients', {
+                            name: patient.nome,
+                            document: patient.documento,
+                            age: patient.idade,
+                            email: patient.email,
+                            cel: patient.cel,
+                            phone: patient.tel
+                        })
+                        window.flash(`Usuario criado com sucesso`, 'success');
                         setTimeout(() => {
-                            window.location.href = '/usuarioList';
+                            window.location.href = '/pacienteList';
                         }, 2000);
                     } catch (e) {
+
                         window.flash(
                             `Erro: ${e.response.data.errors}`,
                             'error'
@@ -128,22 +82,20 @@ export default class CriarUsuario extends Component {
                         nome: Yup.string()
                             .min(3, 'Nome menor que 3 caracteres')
                             .required('Nome é Obrigatório'),
+                        documento: Yup.string()
+                            .required('Documento Obrigatório'),
+                        cel: Yup.string(),
                         email: Yup.string()
-                            .email()
-                            .required('Email Obrigatório'),
-                        doctor: Yup.boolean(),
-                        crm: Yup.string().when('doctor', (doctor, field) => {
-                            return doctor
-                                ? field.required('Crm é obrigatório')
-                                : field.notRequired();
-                        }),
-                        especialty_id: Yup.string().when('doctor', (doctor, field) => {
-                            return doctor
-                                ? field.test('is-true', 'Selecione Especialidade', (especialty) => {
-                                    return (typeof especialty !== 'undefined' && Number(especialty) !== -1)
-                                })
-                                : field.notRequired();
-                        }),
+                            .email('Email Invalido')
+                            .when(['cel', 'tel'], (cel, tel, email) => {
+                                return !(cel || tel) ? email.required('Um forma de contato é necessario') : email.notRequired()
+                            }),
+                        tel: Yup.string(),
+                        idade: Yup.number()
+                            .test('is-true', 'Selecione uma idade', (idade) => {
+                                return (idade !== 'undefined' && idade !== -1)
+                            })
+
                     })
                 }
             >
@@ -164,7 +116,13 @@ export default class CriarUsuario extends Component {
                             <div className="lander">
                                 <span className="mwarning">{this.state.errors}</span>
                                 <Form horizontal onSubmit={handleSubmit}>
-
+                                    <Idade
+                                        value={values.idade}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        errors={errors}
+                                        touched={touched}
+                                    />
                                     <CampoNome
                                         value={values.nome}
                                         onChange={handleChange}
@@ -172,7 +130,6 @@ export default class CriarUsuario extends Component {
                                         errors={errors}
                                         touched={touched}
                                     />
-
                                     <CampoEmail
                                         value={values.email}
                                         onChange={handleChange}
@@ -180,35 +137,23 @@ export default class CriarUsuario extends Component {
                                         errors={errors}
                                         touched={touched}
                                     />
-
-                                    {values.doctor && (
-                                        <FormGroup>
-
-                                            <CampoCrm
-                                                value={values.crm}
-                                                onChange={handleChange}
-                                                onBlur={handleBlur}
-                                                errors={errors}
-                                                touched={touched}
-                                            />
-
-                                            <CampoEspecialidade
-                                                value={values.especialty_id}
-                                                onChange={handleChange}
-                                                items={this.state.espec}
-                                                errors={errors}
-                                                touched={touched}
-                                            />
-
-
-                                        </FormGroup>
-                                    )}
-                                    <CamposRoles
+                                    <CampoDocumento
+                                        value={values.documento}
+                                        disabled
                                         onChange={handleChange}
                                         onBlur={handleBlur}
-                                        admin={values.admin}
-                                        doctor={values.doctor}
-                                        atendent={values.atendent}
+                                        errors={errors}
+                                        touched={touched}
+                                    />
+
+                                    <CamposTelefones
+                                        valueCel={values.cel}
+                                        valueTel={values.tel}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        errors={errors}
+                                        touched={touched}
+
 
                                     />
                                     <FormGroup>

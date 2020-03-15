@@ -7,17 +7,17 @@ import {
 
 import TextField from '../../../components/form/TextField'
 
-function CampoNome(props) {
+function CampoMedicamento(props) {
     return (
 
         <FormGroup>
             <Col componentClass={ControlLabel} sm={2}>
-                Nome
+                Medicamento
             </Col>
             <Col sm={10}>
                 <TextField
                     id="nome"
-                    placeholder="Nome"
+                    placeholder="Medicamento"
                     type="text"
                     value={props.value}
                     onChange={props.onChange}
@@ -31,4 +31,4 @@ function CampoNome(props) {
     );
 }
 
-export default CampoNome
+export default CampoMedicamento

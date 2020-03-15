@@ -11,7 +11,6 @@ function Select(props) {
                 componentClass="select"
                 onChange={props.onChange}
                 value={props.value}
-                options={props.options}
             >
                 {props.items}
             </FormControl>

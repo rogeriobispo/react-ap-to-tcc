@@ -12,12 +12,12 @@ function CampoNome(props) {
 
         <FormGroup>
             <Col componentClass={ControlLabel} sm={2}>
-                Nome
+                Fabricante
             </Col>
             <Col sm={10}>
                 <TextField
-                    id="nome"
-                    placeholder="Nome"
+                    id="fabricante"
+                    placeholder="Fabricante"
                     type="text"
                     value={props.value}
                     onChange={props.onChange}

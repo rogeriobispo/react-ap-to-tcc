@@ -10,13 +10,13 @@ import TextField from '../../../components/form/TextField'
 function CamposTelefone(props) {
     return (
 
-        <FormGroup controlId="nome">
+        <FormGroup>
             <Col componentClass={ControlLabel} sm={2}>
-                Telefone Fixo
+                Telefone
             </Col>
             <Col sm={4}>
                 <TextField
-                    id="fixo"
+                    id="tel"
                     placeholder="Telefone Fixo"
                     type="text"
                     value={props.valueTel}
@@ -31,7 +31,7 @@ function CamposTelefone(props) {
             </Col>
             <Col sm={4}>
                 <TextField
-                    id="celular"
+                    id="cel"
                     placeholder="Telefone Celular"
                     type="text"
                     value={props.valueCel}

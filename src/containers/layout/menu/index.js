@@ -5,6 +5,9 @@ import { user } from '../../../services/authentication/auth'
 import Usuario from './Usuario'
 import Medico from './Medico'
 import Paciente from './Paciente'
+import Especialidade from './Especialidade'
+import Medicamento from './Medicamento'
+import Agenda from './Agenda'
 
 function Menu() {
     return (
@@ -15,6 +18,9 @@ function Menu() {
                 <Usuario />
                 <Medico />
                 <Paciente />
+                <Especialidade />
+                <Medicamento />
+                <Agenda />
 
                 <Nav pullRight>
                     <div className="changePassword">

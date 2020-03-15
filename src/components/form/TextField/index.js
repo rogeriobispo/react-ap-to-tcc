@@ -11,6 +11,7 @@ function TextField(props) {
                 placeholder={props.placeholder}
                 type={props.type}
                 value={props.value}
+                disabled={props.disabled}
                 onChange={props.onChange}
                 onBlur={props.onBlur}
                 className={

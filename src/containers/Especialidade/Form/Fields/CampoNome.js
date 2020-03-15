@@ -5,19 +5,19 @@ import {
     ControlLabel,
 } from 'react-bootstrap';
 
-import TextField from '../../../components/form/TextField'
+import TextField from '../../../../components/form/TextField'
 
 function CampoNome(props) {
     return (
 
         <FormGroup>
             <Col componentClass={ControlLabel} sm={2}>
-                Nome
+                Especialidade
             </Col>
             <Col sm={10}>
                 <TextField
                     id="nome"
-                    placeholder="Nome"
+                    placeholder="Especialidade"
                     type="text"
                     value={props.value}
                     onChange={props.onChange}

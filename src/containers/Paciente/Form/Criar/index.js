@@ -10,13 +10,14 @@ import {
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
+import Idade from '../../Fields/idade'
 import CampoNome from '../../Fields/CampoNome'
 import CampoEmail from '../../Fields/CampoEmail'
 import CampoDocumento from '../../Fields/CampoDocumento'
 import CamposTelefones from '../../Fields/CamposTelefone'
 import BtnReset from '../../../../components/form/BtnReset'
 import BtnSubmit from '../../../../components/form/btnSubmit'
-// import ClinicClient from '../../../../services/Clinic/ClinicClient';
+import ClinicClient from '../../../../services/Clinic/ClinicClient';
 
 export default class CriarPaciente extends Component {
   constructor(props) {
@@ -32,16 +33,24 @@ export default class CriarPaciente extends Component {
         initialValues={{
           email: '',
           nome: '',
-          rg: '',
+          documento: '',
           tel: '',
-          cel: ''
+          cel: '',
+          idade: -1
         }}
         onSubmit={async (patient) => {
           try {
-            console.log(patient)
+            await ClinicClient.post('/patients', {
+              name: patient.nome,
+              document: patient.documento,
+              age: patient.idade,
+              email: patient.email,
+              cel: patient.cel,
+              phone: patient.tel
+            })
             window.flash(`Usuario criado com sucesso`, 'success');
             setTimeout(() => {
-              window.location.href = '/usuarioList';
+              window.location.href = '/pacienteList';
             }, 2000);
           } catch (e) {
 
@@ -56,18 +65,20 @@ export default class CriarPaciente extends Component {
             nome: Yup.string()
               .min(3, 'Nome menor que 3 caracteres')
               .required('Nome é Obrigatório'),
+            documento: Yup.string()
+              .required('Documento Obrigatório'),
+            cel: Yup.string(),
             email: Yup.string()
-              .email()
-              .required('Email Obrigatório'),
-            rg: Yup.string()
-              .email()
-              .required('RG Obrigatório'),
-            tel: Yup.string()
-              .email()
-              .required('Telefone é Obrigatório'),
-            cel: Yup.string()
-              .email()
-              .required('Telefone é Obrigatório'),
+              .email('Email Invalido')
+              .when(['cel', 'tel'], (cel, tel, email) => {
+                return !(cel || tel) ? email.required('Um forma de contato é necessario') : email.notRequired()
+              }),
+            tel: Yup.string(),
+            idade: Yup.number()
+              .test('is-true', 'Selecione uma idade', (idade) => {
+                return (idade !== 'undefined' && idade !== -1)
+              })
+
           })
         }
       >
@@ -89,6 +100,13 @@ export default class CriarPaciente extends Component {
 
                 <span className="mwarning">{this.state.errors}</span>
                 <Form horizontal onSubmit={handleSubmit}>
+                  <Idade
+                    value={values.idade}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    errors={errors}
+                    touched={touched}
+                  />
                   <CampoNome
                     value={values.nome}
                     onChange={handleChange}
@@ -104,7 +122,7 @@ export default class CriarPaciente extends Component {
                     touched={touched}
                   />
                   <CampoDocumento
-                    value={values.rg}
+                    value={values.documento}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     errors={errors}
@@ -112,12 +130,14 @@ export default class CriarPaciente extends Component {
                   />
 
                   <CamposTelefones
+                    valueCel={values.cel}
                     valueTel={values.tel}
-                    valuecel={values.cel}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     errors={errors}
                     touched={touched}
+
+
                   />
                   <FormGroup>
                     <Col smOffset={0} sm={0}>
