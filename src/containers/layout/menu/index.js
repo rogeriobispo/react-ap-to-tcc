@@ -8,6 +8,7 @@ import Paciente from './Paciente'
 import Especialidade from './Especialidade'
 import Medicamento from './Medicamento'
 import Agenda from './Agenda'
+import Agendamento from './Agendameto'
 
 function Menu() {
     return (
@@ -21,7 +22,7 @@ function Menu() {
                 <Especialidade />
                 <Medicamento />
                 <Agenda />
-
+                <Agendamento />
                 <Nav pullRight>
                     <div className="changePassword">
                         <Link to={{ pathname: `/usuario/password`, user: user() }}>

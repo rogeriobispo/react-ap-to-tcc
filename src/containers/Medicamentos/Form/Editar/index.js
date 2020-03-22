@@ -35,7 +35,6 @@ export default class EditarMedicamento extends Component {
         try {
             const { id } = this.props.computedMatch.params
             const response = await ClinicClient.get(`/medicines/${id}`)
-            console.dir(response)
             this.setState({ medicamento: response.data })
         } catch (error) {
             this.setState({ errors: `Medicamento não localizado${error}` })

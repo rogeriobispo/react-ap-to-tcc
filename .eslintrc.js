@@ -33,6 +33,10 @@ module.exports = {
     'react/prop-types': 0,
     'react/react-in-jsx-scope': 0,
     'no-restricted-globals': 0,
-    'no-plusplus': 0
+    'no-plusplus': 0,
+    'eslint-disable-next-line': 0,
+    'react/no-access-state-in-setstate': 0,
+    'camelcase': 0,
+    'array-callback-return': 0
   },
 };

@@ -167,7 +167,7 @@ function Index() {
 
     return (
         <Jumbotron>
-            <span>Para remover agendamento click no botão azul</span>
+            <small>* Para remover agendamento click no botão azul</small>
             <Agenda buttonState={buttonState} setButtonState={setButtonState} handleClick={handleClick} list />
         </Jumbotron>
     );

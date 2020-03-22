@@ -27,8 +27,6 @@ function Idade(props) {
                     errors={props.errors}
                     touched={props.touched}
                     items={idades}
-
-
                 />
             </Col>
         </FormGroup>
