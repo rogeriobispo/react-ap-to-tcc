@@ -33,10 +33,10 @@ export default class CriarAgendamento extends Component {
 
     this.handleMedico = this.handleMedico.bind(this)
     this.handleDateSelected = this.handleDateSelected.bind(this)
-    this.handlePasciente = this.handlePasciente.bind(this)
+    this.handlePaciente = this.handlePaciente.bind(this)
   }
 
-  handlePasciente(e) {
+  handlePaciente(e) {
     e.preventDefault();
 
     const pascienteId = Number(e.target.value)
@@ -99,13 +99,13 @@ export default class CriarAgendamento extends Component {
 
         onSubmit={async (agendamento) => {
           try {
-            console.log(agendamento)
             if (!agendamento.dateSelected || !agendamento.time) {
               window.flash('Erro: data é hora são obritaório', 'error')
               return false
             }
 
             const data = format(agendamento.dateSelected, 'yyyy-MM-dd')
+
             ClinicClient.post('appointments', {
               "doctor_id": agendamento.doctor,
               "patient_id": agendamento.pasciente,
@@ -114,9 +114,9 @@ export default class CriarAgendamento extends Component {
             })
 
             window.flash(`Agendamento criado com sucesso`, 'success');
-            // setTimeout(() => {
-            //   window.location.href = '/usuarioList';
-            // }, 2000);
+            setTimeout(() => {
+              window.location.href = '/agendamentoList';
+            }, 2000);
           } catch (e) {
 
             window.flash(
@@ -165,7 +165,7 @@ export default class CriarAgendamento extends Component {
                     Pasciente
                     <CampoPasciente
                       value={values.pasciente}
-                      onChange={(e) => { handleChange(e); this.handlePasciente(e) }}
+                      onChange={(e) => { handleChange(e); this.handlePaciente(e) }}
                       onBlur={handleBlur}
                       errors={errors}
                       touched={touched}

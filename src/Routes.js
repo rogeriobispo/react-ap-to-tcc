@@ -27,6 +27,7 @@ import CriarAgenda from './containers/Agenda/Criar'
 import AgendaList from './containers/Agenda/List'
 
 import Agendamento from './containers/Agendamento/Form/Criar'
+import AgendamentoList from './containers/Agendamento/Form/List'
 
 import TrocaSenha from './containers/TrocaSenha/TrocaSenha';
 import NotFound from "./containers/NotFound/NotFound";
@@ -57,6 +58,7 @@ export default function Routes() {
             <PrivateRoute exact path="/criarAgenda" component={CriarAgenda} />
             <PrivateRoute exact path="/agendaList" component={AgendaList} />
             <PrivateRoute exact path="/agendamento" component={Agendamento} />
+            <PrivateRoute exact path="/agendamentoList" component={AgendamentoList} />
             <PrivateRoute exact path="*" component={NotFound} />
 
             <Route path="*" component={NotFound} />
