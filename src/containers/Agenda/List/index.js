@@ -134,7 +134,7 @@ function Index() {
     }
 
     (async function changeState() {
-        const response = await clinicClient.get(`/doctor/${user().id}/schedules`)
+        const response = await clinicClient.get(`/doctors/${user().id}/schedules`)
         const schedules = response.data
 
         schedules.map(async (schedule) => {

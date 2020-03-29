@@ -28,11 +28,19 @@ import AgendaList from './containers/Agenda/List'
 
 import Agendamento from './containers/Agendamento/Form/Criar'
 import AgendamentoList from './containers/Agendamento/Form/List'
+import ReceitaList from './containers/Receitas/List'
 
 import TrocaSenha from './containers/TrocaSenha/TrocaSenha';
 import NotFound from "./containers/NotFound/NotFound";
 import Logout from './containers/logout/logout';
 import Login from './containers/Login/Login';
+
+import AtendimentoList from './containers/Atendimento/List'
+import CriarAtendimento from './containers/Atendimento/Form/Criar/index'
+import ImprimirReceita from './containers/Receitas/imprimir'
+
+import ExameList from "./containers/Exames/List"
+import ExameCriar from './containers/Exames/Form/Criar'
 
 export default function Routes() {
    return (
@@ -59,8 +67,13 @@ export default function Routes() {
             <PrivateRoute exact path="/agendaList" component={AgendaList} />
             <PrivateRoute exact path="/agendamento" component={Agendamento} />
             <PrivateRoute exact path="/agendamentoList" component={AgendamentoList} />
+            <PrivateRoute exact path="/AtendimentoList" component={AtendimentoList} />
+            <PrivateRoute exact path="/Atendimento/:id" component={CriarAtendimento} />
+            <PrivateRoute exact path="/Atendimento/:id/receita" component={ImprimirReceita} />
+            <PrivateRoute exact path="/receitaList" component={ReceitaList} />
+            <PrivateRoute exact path="/exameList" component={ExameList} />
+            <PrivateRoute exact path="/Atendimento/:id/exame" component={ExameCriar} />
             <PrivateRoute exact path="*" component={NotFound} />
-
             <Route path="*" component={NotFound} />
 
          </Switch>

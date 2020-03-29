@@ -2,6 +2,7 @@ import React from 'react';
 import { Table } from "react-bootstrap"
 
 function Tabela(props) {
+    console.log("################", props.msg)
     return (
         <div>
             <Table responsive striped hover condensed className='tableList'>

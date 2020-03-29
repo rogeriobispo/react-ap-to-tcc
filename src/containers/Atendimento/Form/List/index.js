@@ -10,7 +10,7 @@ import CampoMedico from '../../Fields/CampoMedico'
 import CampoPasciente from '../../Fields/CampoPasciente'
 import AgendamentoList from '../../Fields/AgendamentoList'
 
-export default class ListarAgendamento extends Component {
+export default class CriarAgendamento extends Component {
   constructor(props) {
     super(props);
     this.state = {
