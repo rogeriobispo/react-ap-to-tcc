@@ -16,7 +16,7 @@ function Usuario() {
                         </LinkContainer>
                     </MenuItem>
                     <MenuItem divider />
-                    <MenuItem eventKey="1.2" href="/usuarioList">Listar</MenuItem>
+                    <MenuItem eventKey="1.2" href="/usuarioList">Lista</MenuItem>
                 </NavDropdown>
             )}
         </>

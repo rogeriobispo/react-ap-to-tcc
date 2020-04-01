@@ -1,6 +1,7 @@
+/* eslint-disable consistent-return */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Glyphicon, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Glyphicon, Popover, OverlayTrigger, Radio, FormGroup, Col, ControlLabel, Form, FormControl } from 'react-bootstrap';
 
 import { format } from 'date-fns';
 import Tabela from '../../../components/Tabelas';
@@ -9,11 +10,16 @@ import DetailModal from '../../../components/Modal/Detail';
 
 function UsuarioList() {
     const [users, setUser] = useState([]);
+    const [filter, setFilter] = useState([])
+    const [currentFilter, setCurrentFilter] = useState('')
+    const [consult, setConsult] = useState('')
 
     useEffect(() => {
         (async () => {
             const response = await ClinicClient.get('/users');
             setUser(response.data);
+            setFilter(response.data)
+
         })();
     }, []);
 
@@ -21,9 +27,28 @@ function UsuarioList() {
         return roles.includes('Admin');
     }
 
+    function filterUsers(filtertype) {
+        if (filtertype === 'all')
+            setFilter(users)
+        if (filtertype === 'medico')
+            setFilter(users.filter(u => u.doctor === true))
+        if (filtertype === 'atendente')
+            setFilter(users.filter(u => u.roles.includes('Recepcionist')))
+
+        setCurrentFilter(filtertype)
+    }
+
+    function searchFilter(e) {
+        if (e.target.value === '') {
+            filterUsers(currentFilter)
+            return
+        }
+        const searched = filter.filter(u => u.name.includes(e.target.value) || u.email.includes(e.target.value))
+        setFilter(searched)
+    }
 
     function isRecepcionista(roles) {
-        return roles.includes(' Recepcionist ');
+        return roles.includes('Recepcionist');
     }
 
     function editLink(userId) {
@@ -130,12 +155,65 @@ function UsuarioList() {
     }
 
     return (
-        <>
-            <Tabela
-                head={tableHead()}
-                body={users.map(user => tableBody(user))}
-            />
-        </>
+
+        <div className="Home">
+            if()
+            <div className="lander">
+
+                <Form horizontal onSubmit={(e) => e.preventDefault()}>
+                    <FormGroup>
+                        <Col componentClass={ControlLabel} sm={1}>
+                            Tipo
+                        </Col>
+                        <Col sm={4}>
+                            <Radio
+                                name="filter"
+                                value="all"
+                                onChange={(e) => filterUsers(e.target.value)}
+                                inline
+                            >
+                                Todos
+                            </Radio>
+
+                            <Radio
+                                name="filter"
+                                value="medico"
+                                onChange={(e) => filterUsers(e.target.value)}
+                                inline
+                            >
+                                Médico
+                            </Radio>
+                            <Radio
+                                name="filter"
+                                value="atendente"
+                                onChange={(e) => filterUsers(e.target.value)}
+                                inline
+                            >
+                                Atendente
+                            </Radio>
+                        </Col>
+                        <Col componentClass={ControlLabel} sm={1}>
+                            Procurar
+                        </Col>
+                        <Col sm={5}>
+                            <FormControl
+                                type="text"
+                                value={consult}
+                                placeholder="Digite nome/email"
+                                onChange={(e) => { setConsult(e.target.value); searchFilter(e) }}
+                            />
+                        </Col>
+
+                    </FormGroup>
+
+                </Form>
+
+                <Tabela
+                    head={tableHead()}
+                    body={filter.map(user => tableBody(user))}
+                />
+            </div>
+        </div>
     );
 }
 

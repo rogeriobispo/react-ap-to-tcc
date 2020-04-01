@@ -13,6 +13,7 @@ function ExameList(props) {
                 <th>Data</th>
                 <th>Hora</th>
                 <th>Exame</th>
+                <th>Guia</th>
             </>
         );
     }
@@ -31,7 +32,13 @@ function ExameList(props) {
                         <Glyphicon glyph='glyphicon glyphicon-heart-empty' />
                     </Link>
                 </td>
-
+                <td>
+                    {schedule.exam && (
+                        <Link to={`/atendimento/${schedule.id}/guia`} className="btn btn-success active">
+                            <Glyphicon glyph='glyphicon glyphicon-print' />
+                        </Link>
+                    )}
+                </td>
 
 
             </tr>

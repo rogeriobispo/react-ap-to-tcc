@@ -43,9 +43,13 @@ export default class CriarAtendimento extends Component {
         }}
         onSubmit={async exames => {
           try {
+            if (this.state.exames.length === 0) {
+              window.flash(`Deve conter exames para cadastar`, 'error');
+              return null
+            }
 
             const apId = this.props.computedMatch.params.id
-            this.state.exames.map((ex) => {
+            this.state.exames.map(async ex => {
               const bodyParams = {
                 name: ex,
                 patient_id: this.state.patient_id,
@@ -53,12 +57,13 @@ export default class CriarAtendimento extends Component {
                 with_doctor: exames.with === 'medico',
                 with_patient: exames.with === 'Paciente'
               }
-              ClinicClient.post('/exams', bodyParams)
-            })
+              await ClinicClient.post('/exams', bodyParams)
 
+            })
+            await ClinicClient.put(`appointments/${apId}`, { exam: true })
             window.flash(`Atendimento finalizado com sucesso`, 'success');
             setTimeout(() => {
-              window.location.href = '/atendimentoList';
+              window.location.href = '/ExameList';
             }, 2000);
           } catch (e) {
             window.flash(

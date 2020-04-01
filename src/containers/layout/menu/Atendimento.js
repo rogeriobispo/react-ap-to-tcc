@@ -10,7 +10,7 @@ function Medico() {
                     <NavDropdown eventKey="2" title="Atendimento" id="nav-dropdown">
                         <MenuItem eventKey="2.2" href="/AtendimentoList">Listar</MenuItem>
                         <MenuItem eventKey="2.2" href="/receitaList">Receitas</MenuItem>
-                        <MenuItem eventKey="2.2" href="/exameList">exames</MenuItem>
+                        <MenuItem eventKey="2.2" href="/exameList">Exames</MenuItem>
                     </NavDropdown>
                 )
             }

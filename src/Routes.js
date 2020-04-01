@@ -41,6 +41,8 @@ import ImprimirReceita from './containers/Receitas/imprimir'
 
 import ExameList from "./containers/Exames/List"
 import ExameCriar from './containers/Exames/Form/Criar'
+import ImprimirGuia from './containers/Guia/imprimir'
+import ExamResult from "./containers/Resultado/Form/Criar"
 
 export default function Routes() {
    return (
@@ -48,6 +50,7 @@ export default function Routes() {
          <Switch>
             <Route path="/" exact component={Login} />
             <Route path="/logout" exact component={Logout} />
+            <Route path="/Atendimento/:id/resultados" exact component={ExamResult} />
             <PrivateRoute exact path="/home" component={Home} />
             <PrivateRoute exact path="/usuario" component={CriarUsuario} />
             <PrivateRoute exact path="/usuario/password" component={TrocaSenha} />
@@ -73,6 +76,7 @@ export default function Routes() {
             <PrivateRoute exact path="/receitaList" component={ReceitaList} />
             <PrivateRoute exact path="/exameList" component={ExameList} />
             <PrivateRoute exact path="/Atendimento/:id/exame" component={ExameCriar} />
+            <PrivateRoute exact path="/Atendimento/:id/guia" component={ImprimirGuia} />
             <PrivateRoute exact path="*" component={NotFound} />
             <Route path="*" component={NotFound} />
 
