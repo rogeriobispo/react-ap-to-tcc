@@ -43,7 +43,7 @@ function Detail(props) {
                     <hr />
                 </Modal.Body>
                 <Modal.Footer>
-                    {props.link}
+                    {props.editLink}
                     {' '}
                     &nbsp;
 

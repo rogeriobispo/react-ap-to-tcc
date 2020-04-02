@@ -9,7 +9,7 @@ function ReceitaList(props) {
         return (
             <>
                 <th>Medico</th>
-                <th>Pasciente</th>
+                <th>Paciente</th>
                 <th>Data</th>
                 <th>Hora</th>
                 <th>Receita</th>

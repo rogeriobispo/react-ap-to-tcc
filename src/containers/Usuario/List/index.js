@@ -7,12 +7,14 @@ import { format } from 'date-fns';
 import Tabela from '../../../components/Tabelas';
 import ClinicClient from '../../../services/Clinic/ClinicClient';
 import DetailModal from '../../../components/Modal/Detail';
+import ConfirmDelete from '../Fields/confimreDeletionModal'
 
 function UsuarioList() {
     const [users, setUser] = useState([]);
     const [filter, setFilter] = useState([])
-    const [currentFilter, setCurrentFilter] = useState('')
+    const [currentFilter, setCurrentFilter] = useState('all')
     const [consult, setConsult] = useState('')
+
 
     useEffect(() => {
         (async () => {
@@ -27,6 +29,9 @@ function UsuarioList() {
         return roles.includes('Admin');
     }
 
+    async function deleteUser(userId) {
+        await ClinicClient.delete(`/users/${userId}`)
+    }
     function filterUsers(filtertype) {
         if (filtertype === 'all')
             setFilter(users)
@@ -56,6 +61,7 @@ function UsuarioList() {
             <Link to={`usuario/${userId}`} className="btn btn-primary active">Editar</Link>
         )
     }
+
 
     function userDetail(user) {
         return (
@@ -113,6 +119,7 @@ function UsuarioList() {
                 <th>Criado Em</th>
                 <th>Detalhes</th>
                 <th>Senha</th>
+                <th>{' '}</th>
             </>
         );
     }
@@ -132,7 +139,7 @@ function UsuarioList() {
                     <DetailModal
                         userDetail={userDetail(user)}
                         username={user.name}
-                        link={editLink(user.id)}
+                        editLink={editLink(user.id)}
                         propovalMessage={{
                             msg: 'Detalhe do usuario',
                             title: '',
@@ -150,6 +157,15 @@ function UsuarioList() {
                         </Link>
                     </OverlayTrigger>
                 </td>
+                <td>
+                    <ConfirmDelete
+                        user={user}
+                        deleteUser={deleteUser}
+                        setFilter={setFilter}
+                        filter={filter}
+
+                    />
+                </td>
             </tr>
         );
     }
@@ -157,7 +173,7 @@ function UsuarioList() {
     return (
 
         <div className="Home">
-            if()
+
             <div className="lander">
 
                 <Form horizontal onSubmit={(e) => e.preventDefault()}>
@@ -171,6 +187,7 @@ function UsuarioList() {
                                 value="all"
                                 onChange={(e) => filterUsers(e.target.value)}
                                 inline
+                                checked={currentFilter === 'all'}
                             >
                                 Todos
                             </Radio>
@@ -180,6 +197,7 @@ function UsuarioList() {
                                 value="medico"
                                 onChange={(e) => filterUsers(e.target.value)}
                                 inline
+                                checked={currentFilter === 'medico'}
                             >
                                 Médico
                             </Radio>
@@ -188,6 +206,7 @@ function UsuarioList() {
                                 value="atendente"
                                 onChange={(e) => filterUsers(e.target.value)}
                                 inline
+                                checked={currentFilter === 'atendente'}
                             >
                                 Atendente
                             </Radio>

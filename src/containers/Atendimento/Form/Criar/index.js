@@ -115,7 +115,7 @@ export default class CriarAtendimento extends Component {
                   />
 
                   <CampoMedicamento
-                    value={values.pasciente}
+                    value={values.paciente}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     errors={errors}

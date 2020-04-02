@@ -51,8 +51,8 @@ function ImprimirReceita(props) {
                                 </tr>
                                 <tr>
                                     <td>
-                                        Pasciente:
-{' '}
+                                        Paciente:
+                                            {' '}
                                         {getPatiente()}
                                         {' '}
                                     </td>

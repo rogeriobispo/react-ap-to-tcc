@@ -15,7 +15,7 @@ import CampoMedico from '../../Fields/CampoMedico'
 import BtnReset from '../../../../components/form/BtnReset'
 import BtnSubmit from '../../../../components/form/btnSubmit'
 import CampoHorariosDisponivel from '../../Fields/CampoHorariosDisponivel'
-import CampoPasciente from '../../Fields/CampoPasciente'
+import CampoPaciente from '../../Fields/CampoPaciente'
 
 export default class CriarAgendamento extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ export default class CriarAgendamento extends Component {
       scheduleTime: null,
       timeSelected: null,
       doctorId: -1,
-      pascienteId: -1
+      pacienteId: -1
     }
 
     this.handleMedico = this.handleMedico.bind(this)
@@ -39,8 +39,8 @@ export default class CriarAgendamento extends Component {
   handlePaciente(e) {
     e.preventDefault();
 
-    const pascienteId = Number(e.target.value)
-    this.setState({ pascienteId })
+    const pacienteId = Number(e.target.value)
+    this.setState({ pacienteId })
   }
 
   async handleDateSelected(date) {
@@ -89,7 +89,7 @@ export default class CriarAgendamento extends Component {
         enableReinitialize
         initialValues={{
           doctor: this.state.doctorId,
-          pasciente: this.state.pascienteId,
+          paciente: this.state.pacienteId,
           dateSelected: this.state.dateSelected,
           time: this.state.timeSelected
 
@@ -108,7 +108,7 @@ export default class CriarAgendamento extends Component {
 
             ClinicClient.post('appointments', {
               "doctor_id": agendamento.doctor,
-              "patient_id": agendamento.pasciente,
+              "patient_id": agendamento.paciente,
               "date": `${data}T${agendamento.time}:00-03:00`
 
             })
@@ -134,8 +134,8 @@ export default class CriarAgendamento extends Component {
                 return (idade !== 'undefined' && idade !== -1)
               }),
 
-            pasciente: Yup.number()
-              .test('is-true', 'Selecione um pasciente', (idade) => {
+            paciente: Yup.number()
+              .test('is-true', 'Selecione um paciente', (idade) => {
                 return (idade !== 'undefined' && idade !== -1)
               })
 
@@ -162,9 +162,9 @@ export default class CriarAgendamento extends Component {
                 <span className="mwarning">{this.state.errors}</span>
                 <Form horizontal onSubmit={handleSubmit}>
                   <Col sm={6} md={3}>
-                    Pasciente
-                    <CampoPasciente
-                      value={values.pasciente}
+                    Paciente
+                    <CampoPaciente
+                      value={values.paciente}
                       onChange={(e) => { handleChange(e); this.handlePaciente(e) }}
                       onBlur={handleBlur}
                       errors={errors}

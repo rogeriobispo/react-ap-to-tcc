@@ -7,7 +7,7 @@ import './list.css'
 import { Formik } from 'formik';
 import ClinicClient from '../../../../services/Clinic/ClinicClient'
 import CampoMedico from '../../Fields/CampoMedico'
-import CampoPasciente from '../../Fields/CampoPasciente'
+import CampoPaciente from '../../Fields/CampoPaciente'
 import AgendamentoList from '../../Fields/AgendamentoList'
 
 export default class ListarAgendamento extends Component {
@@ -16,7 +16,7 @@ export default class ListarAgendamento extends Component {
     this.state = {
       errors: "",
       doctorId: -1,
-      pascienteId: -1,
+      pacienteId: -1,
       schedules: { title: "", data: [] }
     }
 
@@ -25,10 +25,10 @@ export default class ListarAgendamento extends Component {
   }
 
   async handlePaciente(e) {
-    const pascienteId = Number(e.target.value)
+    const pacienteId = Number(e.target.value)
 
-    const response = await ClinicClient.get(`/patients/${pascienteId}/appointments`)
-    this.setState({ schedules: { title: "Agenda do pasciente", data: response.data } })
+    const response = await ClinicClient.get(`/patients/${pacienteId}/appointments`)
+    this.setState({ schedules: { title: "Agenda do paciente", data: response.data } })
     this.setState({ doctorId: -1 })
   }
 
@@ -38,7 +38,7 @@ export default class ListarAgendamento extends Component {
     const response = await ClinicClient.get(`/doctors/${doctorId}/appointments?filter=all`)
 
     this.setState({ schedules: { title: "Agenda do Médico", data: response.data } })
-    this.setState({ pascienteId: -1 })
+    this.setState({ pacienteId: -1 })
   }
 
   render() {
@@ -48,7 +48,7 @@ export default class ListarAgendamento extends Component {
         enableReinitialize
         initialValues={{
           doctor: this.state.doctorId,
-          pasciente: this.state.pascienteId,
+          paciente: this.state.pacienteId,
 
         }}
       >
@@ -68,9 +68,9 @@ export default class ListarAgendamento extends Component {
                 <span className="mwarning">{this.state.errors}</span>
 
                 <Col sm={6} md={3}>
-                  Pasciente
-                  <CampoPasciente
-                    value={values.pasciente}
+                  Paciente
+                  <CampoPaciente
+                    value={values.paciente}
                     onChange={(e) => { handleChange(e); this.handlePaciente(e) }}
                     onBlur={handleBlur}
                     errors={errors}

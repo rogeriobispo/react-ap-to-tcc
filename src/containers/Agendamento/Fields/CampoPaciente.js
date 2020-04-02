@@ -2,31 +2,31 @@ import React, { useState, useEffect } from 'react';
 import Select from '../../../components/form/Select'
 import ClinicClient from '../../../services/Clinic/ClinicClient'
 
-function CampoPasciente(props) {
+function CampoPaciente(props) {
 
     const [pascients, setPascients] = useState([])
 
 
     useEffect(() => {
         (async () => {
-            const pascientes = await ClinicClient.get('/patients')
-            setPascients(pascientes.data)
+            const pacientes = await ClinicClient.get('/patients')
+            setPascients(pacientes.data)
         })()
 
     }, [])
 
 
-    function pascientesOptions() {
+    function pacientesOptions() {
         const options = [
             <option key={-1} value={-1}>
                 Selecione
             </option>
         ]
 
-        pascients.map((pasciente) => {
+        pascients.map((paciente) => {
             options.push(
-                <option key={pasciente.id} value={pasciente.id}>
-                    {pasciente.name}
+                <option key={paciente.id} value={paciente.id}>
+                    {paciente.name}
                 </option>)
             return true
         })
@@ -37,15 +37,15 @@ function CampoPasciente(props) {
     return (
         <>
             <Select
-                id='pasciente'
+                id='paciente'
                 onChange={props.onChange}
                 value={props.value}
                 errors={props.errors}
                 touched={props.touched}
-                items={pascientesOptions()}
+                items={pacientesOptions()}
             />
         </>
     );
 }
 
-export default CampoPasciente;
+export default CampoPaciente;

@@ -9,7 +9,7 @@ function ExameList(props) {
         return (
             <>
                 <th>Medico</th>
-                <th>Pasciente</th>
+                <th>Paciente</th>
                 <th>Data</th>
                 <th>Hora</th>
                 <th>Exame</th>
