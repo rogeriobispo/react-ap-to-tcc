@@ -27,7 +27,7 @@ import CriarAgenda from './containers/Agenda/Criar'
 import AgendaList from './containers/Agenda/List'
 
 import Agendamento from './containers/Agendamento/Form/Criar'
-import AgendamentoList from './containers/Agendamento/Form/List'
+import AgendamentoList from './containers/Agendamento/List'
 import ReceitaList from './containers/Receitas/List'
 
 import TrocaSenha from './containers/TrocaSenha/TrocaSenha';

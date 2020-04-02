@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import Tabela from '../../../components/Tabelas';
 import ClinicClient from '../../../services/Clinic/ClinicClient';
 import DetailModal from '../../../components/Modal/Detail';
-import ConfirmDelete from '../Fields/confimreDeletionModal'
+import ConfirmDelete from '../../../components/Modal/confimreDeletionModal'
 
 function UsuarioList() {
     const [users, setUser] = useState([]);
@@ -159,8 +159,8 @@ function UsuarioList() {
                 </td>
                 <td>
                     <ConfirmDelete
-                        user={user}
-                        deleteUser={deleteUser}
+                        field={user}
+                        delete={deleteUser}
                         setFilter={setFilter}
                         filter={filter}
 

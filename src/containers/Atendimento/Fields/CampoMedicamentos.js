@@ -28,7 +28,6 @@ function CampoMedicametos(props) {
     }
     function addMedicine() {
         const jaCadastrado = props.medicamentos.filter(m => m.id === medicamento.id)
-        console.log(props.medicamentos.length === 0)
         if (jaCadastrado.length === 0) {
             props.setMedicamentos({ ...medicamento, dose, })
         } else {

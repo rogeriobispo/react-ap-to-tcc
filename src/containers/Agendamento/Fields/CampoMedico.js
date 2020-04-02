@@ -17,21 +17,12 @@ function CampoMedico(props) {
 
 
     function doctorsOptions() {
-        const options = [
-            <option key={-1} value={-1}>
-                Selecione
-            </option>
-        ]
+        const options = []
 
         doctors.map((doctor) => {
             options.push(
-                <option key={doctor.id} value={doctor.id}>
-                    {doctor.name.split(' ')[0]}
-                    {' '}
-                    -
-              {' '}
-                    {doctor.specialty.name}
-                </option>)
+                { id: doctor.id, value: doctor.id, label: `${doctor.name} - ${doctor.crm}` }
+            )
             return true
         })
 
@@ -41,8 +32,10 @@ function CampoMedico(props) {
     return (
         <>
             <Select
+                name='doctor'
                 id='doctor'
                 onChange={props.onChange}
+                handleChange={props.handleChange}
                 value={props.value}
                 errors={props.errors}
                 touched={props.touched}
@@ -51,5 +44,6 @@ function CampoMedico(props) {
         </>
     );
 }
+
 
 export default CampoMedico;

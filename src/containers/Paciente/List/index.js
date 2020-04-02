@@ -5,7 +5,7 @@ import { FormControl, Col, Form, FormGroup, ControlLabel } from 'react-bootstrap
 import { format } from 'date-fns';
 import Tabela from '../../../components/Tabelas';
 import ClinicClient from '../../../services/Clinic/ClinicClient';
-import ConfirmDelete from '../Fields/confimreDeletionModal'
+import ConfirmDelete from '../../../components/Modal/confimreDeletionModal'
 import DetailModal from '../../../components/Modal/Detail';
 
 function PatientList() {
@@ -38,7 +38,6 @@ function PatientList() {
     }
 
     async function deletePaciente(patientId) {
-        console.log(patientId)
         await ClinicClient.delete(`/patients/${patientId}`)
     }
     function userDetail(patientInfo) {
@@ -66,7 +65,7 @@ function PatientList() {
                     <hr />
                     <h4>
                         Telefone:
-                        {patientInfo.telefone}
+                        {patientInfo.phone}
                     </h4>
 
                 </div>
@@ -86,17 +85,17 @@ function PatientList() {
         );
     }
 
-    function tableBody(user) {
+    function tableBody(pat) {
         return (
             <tr>
-                <td>{user.name}</td>
-                <td>{user.document}</td>
-                <td>{format(new Date(user.created_at), 'dd/MM/yyyy')}</td>
+                <td>{pat.name}</td>
+                <td>{pat.document}</td>
+                <td>{format(new Date(pat.created_at), 'dd/MM/yyyy')}</td>
                 <td>
                     <DetailModal
-                        userDetail={userDetail(user)}
-                        username={user.name}
-                        link={editLink(user.id)}
+                        userDetail={userDetail(pat)}
+                        username={pat.name}
+                        editLink={editLink(pat.id)}
                         propovalMessage={{
                             msg: 'Detalhe do paciente',
                             title: '',
@@ -105,8 +104,8 @@ function PatientList() {
                 </td>
                 <td>
                     <ConfirmDelete
-                        user={user}
-                        deletePaciente={deletePaciente}
+                        field={pat}
+                        delete={deletePaciente}
                         setFilter={setFilter}
                         filter={filter}
                     />

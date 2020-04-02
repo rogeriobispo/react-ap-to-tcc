@@ -4,7 +4,7 @@ import {
     ControlLabel,
 } from 'react-bootstrap';
 
-import Select from '../../../components/form/Select'
+import Select from '../../../components/form/Select/withouSearch'
 
 function CampoCrm(props) {
     return (

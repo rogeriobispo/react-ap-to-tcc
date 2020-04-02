@@ -36,11 +36,9 @@ export default class CriarAgendamento extends Component {
     this.handlePaciente = this.handlePaciente.bind(this)
   }
 
-  handlePaciente(e) {
-    e.preventDefault();
-
-    const pacienteId = Number(e.target.value)
-    this.setState({ pacienteId })
+  handlePaciente(patId) {
+    console.log(patId)
+    this.setState({ pacienteId: patId })
   }
 
   async handleDateSelected(date) {
@@ -64,8 +62,8 @@ export default class CriarAgendamento extends Component {
     this.setState({ dateSelected: date })
   }
 
-  async handleMedico(e) {
-    const doctorId = Number(e.target.value)
+  async handleMedico(docId) {
+    const doctorId = Number(docId)
 
     if (doctorId === -1) {
       await this.setState({ doctorSelected: false })
@@ -165,7 +163,7 @@ export default class CriarAgendamento extends Component {
                     Paciente
                     <CampoPaciente
                       value={values.paciente}
-                      onChange={(e) => { handleChange(e); this.handlePaciente(e) }}
+                      handleChange={(e) => { handleChange(e); this.handlePaciente(e) }}
                       onBlur={handleBlur}
                       errors={errors}
                       touched={touched}
@@ -174,8 +172,8 @@ export default class CriarAgendamento extends Component {
                     Doutor
                     <CampoMedico
                       value={values.doctor}
+                      handleChange={(e) => { handleChange(e); this.handleMedico(e) }}
                       selected={this.state.doctorSelected}
-                      onChange={(e) => { handleChange(e); this.handleMedico(e) }}
                       errors={errors}
                       touched={touched}
                     />

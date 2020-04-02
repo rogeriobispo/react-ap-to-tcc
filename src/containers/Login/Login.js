@@ -27,11 +27,11 @@ export default function Login(props) {
   }
 
   return (
-    <PublicLayout isAuthenticated={false} >
+    <PublicLayout isAuthenticated={false}>
       <div className="Login">
         <form onSubmit={handleSubmit}>
           <FormGroup controlId="username" bsSize="large">
-            <ControlLabel>Usuário</ControlLabel>
+            <ControlLabel>Email</ControlLabel>
             <FormControl
               autoFocus
               type="email"

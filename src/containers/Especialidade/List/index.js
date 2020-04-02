@@ -1,19 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Form, FormGroup, Col, ControlLabel, FormControl } from 'react-bootstrap'
 import { format } from 'date-fns';
 import Tabela from '../../../components/Tabelas';
 import ClinicClient from '../../../services/Clinic/ClinicClient';
 import DetailModal from '../../../components/Modal/Detail';
+import ConfirmDelete from '../../../components/Modal/confimreDeletionModal'
 
 function EspecialtyList() {
     const [especialties, setEspecialties] = useState([]);
+    const [filter, setFilter] = useState([])
+    const [consult, setConsult] = useState('')
 
     useEffect(() => {
         (async () => {
             const response = await ClinicClient.get('/specialty');
             setEspecialties(response.data);
+            setFilter(response.data)
         })();
     }, []);
+
+    async function deleteSpec(specId) {
+        await ClinicClient.delete(`/specialty/${specId}`)
+    }
+
+    function searchFilter(e) {
+        if (e.target.value === '') {
+            setFilter(especialties)
+            return
+        }
+        const searched = filter.filter(u => u.name.includes(e.target.value))
+        setFilter(searched)
+    }
 
 
     function editLink(especId) {
@@ -41,6 +59,7 @@ function EspecialtyList() {
                 <th>Nome</th>
                 <th>Criado Em</th>
                 <th>Detalhes</th>
+                <th>{' '}</th>
             </>
         );
     }
@@ -54,11 +73,19 @@ function EspecialtyList() {
                     <DetailModal
                         userDetail={userDetail(spec)}
                         username={spec.name}
-                        link={editLink(spec.id)}
+                        editLink={editLink(spec.id)}
                         propovalMessage={{
                             msg: 'Detalhe das Especialidade',
                             title: '',
                         }}
+                    />
+                </td>
+                <td>
+                    <ConfirmDelete
+                        field={spec}
+                        delete={deleteSpec}
+                        setFilter={setFilter}
+                        filter={filter}
                     />
                 </td>
             </tr>
@@ -66,12 +93,34 @@ function EspecialtyList() {
     }
 
     return (
-        <>
-            <Tabela
-                head={tableHead()}
-                body={especialties.map(sp => tableBody(sp))}
-            />
-        </>
+        <div className="Home">
+
+            <div className="lander">
+
+                <Form horizontal onSubmit={(e) => e.preventDefault()}>
+                    <FormGroup>
+                        <Col componentClass={ControlLabel} sm={1}>
+                            Procurar
+                        </Col>
+                        <Col sm={5}>
+                            <FormControl
+                                type="text"
+                                value={consult}
+                                placeholder="Digite nome do especialidade"
+                                onChange={(e) => { setConsult(e.target.value); searchFilter(e) }}
+                            />
+                        </Col>
+
+                    </FormGroup>
+
+                </Form>
+
+                <Tabela
+                    head={tableHead()}
+                    body={filter.map(sp => tableBody(sp))}
+                />
+            </div>
+        </div>
     );
 }
 

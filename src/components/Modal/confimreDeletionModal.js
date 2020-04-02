@@ -8,8 +8,8 @@ export default function ModalDelete(props) {
     const handleConfim = () => {
 
         try {
-            props.deleteUser(props.user.id)
-            props.setFilter(props.filter.filter(u => u.id !== props.user.id))
+            props.delete(props.field.id)
+            props.setFilter(props.filter.filter(f => f.id !== props.field.id))
             window.flash(`Usuario excluido com sucesso`, 'success');
         } catch (e) {
             window.flash(
@@ -38,7 +38,7 @@ export default function ModalDelete(props) {
                 <Modal.Body>
                     Excluir:
                     {' '}
-                    {props.user.name}
+                    {props.field.name}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button bsStyle="primary" onClick={handleClose}>

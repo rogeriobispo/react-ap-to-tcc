@@ -14,8 +14,6 @@ function ListAtendimento() {
     (async () => {
       const date = format(new Date(), 'yyyy-MM-dd')
       const response = await ClinicClient.get(`/doctors/${user().id}/appointments?date=${date}T00:00:00-0300&status=false`)
-      console.log(response)
-
       setSchedule(response.data)
     })()
   }, [])

@@ -1,78 +1,105 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { format } from 'date-fns';
-import Tabela from '../../../components/Tabelas';
-import ClinicClient from '../../../services/Clinic/ClinicClient';
-import DetailModal from '../../../components/Modal/Detail';
+import React, { Component } from 'react';
+import {
+  Col,
+} from 'react-bootstrap';
+import './list.css'
 
-function EspecialtyList() {
-    const [especialties, setEspecialties] = useState([]);
+import { Formik } from 'formik';
+import ClinicClient from '../../../services/Clinic/ClinicClient'
+import CampoMedico from '../Fields/CampoMedico'
+import CampoPaciente from '../Fields/CampoPaciente'
+import AgendamentoList from '../Fields/AgendamentoList'
 
-    useEffect(() => {
-        (async () => {
-            const response = await ClinicClient.get('/specialty');
-            setEspecialties(response.data);
-        })();
-    }, []);
-
-
-    function editLink(especId) {
-        return (
-            <Link to={`especialidade/${especId}`} className="btn btn-primary active">Editar</Link>
-        )
+export default class ListarAgendamento extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      errors: "",
+      doctorId: -1,
+      pacienteId: -1,
+      schedules: { title: "", data: [] }
     }
 
-    function userDetail(spec) {
-        return (
-            <>
-                <div>
-                    <h4>
-                        Nome:
-                        {spec.name}
-                    </h4>
-                </div>
-            </>
-        );
-    }
+    this.handleMedico = this.handleMedico.bind(this)
+    this.handlePaciente = this.handlePaciente.bind(this)
+  }
 
-    function tableHead() {
-        return (
-            <>
-                <th>Nome</th>
-                <th>Criado Em</th>
-                <th>Detalhes</th>
-            </>
-        );
-    }
+  async handlePaciente(pacId) {
+    const pacienteId = Number(pacId)
 
-    function tableBody(spec) {
-        return (
-            <tr>
-                <td>{spec.name}</td>
-                <td>{format(new Date(spec.created_at), 'dd/MM/yyyy')}</td>
-                <td>
-                    <DetailModal
-                        userDetail={userDetail(spec)}
-                        username={spec.name}
-                        link={editLink(spec.id)}
-                        propovalMessage={{
-                            msg: 'Detalhe das Especialidade',
-                            title: '',
-                        }}
-                    />
-                </td>
-            </tr>
-        );
-    }
+    const response = await ClinicClient.get(`/patients/${pacienteId}/appointments`)
+    this.setState({ schedules: { title: "Agenda do paciente", data: response.data } })
+    this.setState({ doctorId: -1 })
+  }
+
+  async handleMedico(e) {
+    const doctorId = Number(e)
+
+    const response = await ClinicClient.get(`/doctors/${doctorId}/appointments?filter=all`)
+
+    this.setState({ schedules: { title: "Agenda do Médico", data: response.data } })
+    this.setState({ pacienteId: -1 })
+  }
+
+  render() {
 
     return (
-        <>
-            <Tabela
-                head={tableHead()}
-                body={especialties.map(sp => tableBody(sp))}
-            />
-        </>
-    );
-}
+      <Formik
+        enableReinitialize
+        initialValues={{
+          doctor: this.state.doctorId,
+          paciente: this.state.pacienteId,
 
-export default EspecialtyList;
+        }}
+      >
+        {props => {
+          const {
+            values,
+            touched,
+            errors,
+            handleChange,
+            handleBlur,
+
+          } = props;
+          return (
+            <div className="Home">
+              <div className="lander">
+
+                <span className="mwarning">{this.state.errors}</span>
+
+                <Col sm={6} md={3}>
+                  Paciente
+                  <CampoPaciente
+                    value={values.paciente}
+                    handleChange={(e) => { handleChange(e); this.handlePaciente(e) }}
+                    onBlur={handleBlur}
+                    errors={errors}
+                    touched={touched}
+                  />
+                  <hr />
+                    Doutor
+                  <CampoMedico
+                    value={values.doctor}
+                    handleChange={(e) => { handleChange(e); this.handleMedico(e) }}
+                    selected={this.state.doctorSelected}
+                    errors={errors}
+                    touched={touched}
+                  />
+                </Col>
+
+                {this.state.schedules.title}
+                <hr />
+                <AgendamentoList
+                  schedules={this.state.schedules.data}
+                />
+
+
+
+              </div>
+            </div>
+          );
+        }}
+      </Formik>
+    );
+  }
+}

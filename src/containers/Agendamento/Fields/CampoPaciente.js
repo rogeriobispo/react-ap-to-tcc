@@ -18,16 +18,12 @@ function CampoPaciente(props) {
 
     function pacientesOptions() {
         const options = [
-            <option key={-1} value={-1}>
-                Selecione
-            </option>
         ]
 
         pascients.map((paciente) => {
             options.push(
-                <option key={paciente.id} value={paciente.id}>
-                    {paciente.name}
-                </option>)
+                { id: paciente.id, value: paciente.id, label: `${paciente.name} - ${paciente.document}` }
+            )
             return true
         })
 
@@ -37,12 +33,15 @@ function CampoPaciente(props) {
     return (
         <>
             <Select
+                name='paciente'
                 id='paciente'
                 onChange={props.onChange}
+                handleChange={props.handleChange}
                 value={props.value}
                 errors={props.errors}
                 touched={props.touched}
                 items={pacientesOptions()}
+
             />
         </>
     );

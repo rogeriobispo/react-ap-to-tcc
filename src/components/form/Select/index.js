@@ -1,19 +1,24 @@
-import React from 'react';
-import { FormControl } from 'react-bootstrap';
+import React, { useState } from 'react';
+import ReactSelect from 'react-select'
 import Errors from '../Errors'
 
 
 function Select(props) {
+    const [selectedValue, setSelectedValue] = useState("");
+    const handleValueChange = seleValue => {
+        setSelectedValue(seleValue);
+    };
+
     return (
         <>
-            <FormControl
+            <ReactSelect
                 id={props.id}
                 componentClass="select"
-                onChange={props.onChange}
-                value={props.value}
-            >
-                {props.items}
-            </FormControl>
+                name={props.name}
+                onChange={selectedOption => { handleValueChange(selectedOption); props.handleChange(String(selectedOption.value)) }}
+                value={selectedValue}
+                options={props.items}
+            />
 
             <Errors id={props.id} errors={props.errors} touched={props.touched} />
         </>
