@@ -9,17 +9,17 @@ import './list.css'
 
 function ListAtendimento() {
 
-  const [setSchedule] = useState([])
-  const [filter, setFilter] = useState([])
+  const [schedule, setSchedule] = useState([])
+
 
   useEffect(() => {
     (async () => {
       const date = format(new Date(), 'yyyy-MM-dd')
       const response = await ClinicClient.get(`/doctors/${user().id}/appointments?date=${date}T00:00:00-0300&finished=false`)
       setSchedule(response.data)
-      setFilter(response.data)
+
     })()
-  }, [setSchedule, setFilter])
+  }, [setSchedule])
   return (
     <>
       <Breadcrumb>
@@ -30,7 +30,7 @@ function ListAtendimento() {
         <Breadcrumb.Item active>Iniciar</Breadcrumb.Item>
       </Breadcrumb>
       <AtendimentoList
-        schedules={filter}
+        schedules={schedule}
       />
 
     </>
