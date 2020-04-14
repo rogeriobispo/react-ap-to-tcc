@@ -8,7 +8,7 @@ import Paciente from './Paciente'
 import Especialidade from './Especialidade'
 import Medicamento from './Medicamento'
 import Agenda from './Agenda'
-import Agendamento from './Agendameto'
+import Agendamento from './Agendamento'
 import Atendimento from './Atendimento'
 
 function Menu() {

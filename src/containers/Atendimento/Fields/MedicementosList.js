@@ -1,18 +1,22 @@
 import React from 'react';
-import { Panel, Col, FormGroup } from 'react-bootstrap'
+import { Panel, Col, FormGroup, Button, Glyphicon, Table } from 'react-bootstrap'
 
 function MedicementosList(props) {
     function showReceita(medicamento) {
         return (
-            <p>
-                {' '}
-                {medicamento.name}
-                {' '}
-                -
-                {' '}
-                {medicamento.dose}
-                {' '}
-            </p>
+            <tr>
+                <td>{medicamento.name}</td>
+                <td>{medicamento.factory}</td>
+                <td>{medicamento.dose}</td>
+                <td>
+                    <Button bsStyle="danger" onClick={() => props.removeMedicamento(medicamento.id)}>
+                        <Glyphicon
+                            glyph="glyphicon glyphicon-trash"
+                            title="Trocar senha"
+                        />
+                    </Button>
+                </td>
+            </tr>
         )
     }
     return (
@@ -23,7 +27,20 @@ function MedicementosList(props) {
                         <Panel.Title componentClass="h3">Receita</Panel.Title>
                     </Panel.Heading>
                     <Panel.Body>
-                        {props.medicamentos.map(m => showReceita(m))}
+                        <Table striped bordered condensed hover>
+                            <thead>
+                                <tr>
+                                    <th>Medicamento</th>
+                                    <th>Fabricante</th>
+                                    <th>Dose</th>
+                                    <th>Remover</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {props.medicamentos.map(m => showReceita(m))}
+                            </tbody>
+                        </Table>
                     </Panel.Body>
                 </Panel>
 

@@ -82,8 +82,11 @@ function ImprimirReceita(props) {
                                                 {r.medicine.name}
                                                 {' '}
                                                 -
-                                            {' '}
+                                                {' '}
                                                 {r.medicine.factory}
+                                                {' '}
+                                                {r.dose}
+
                                             </td>
                                         </tr>
                                     </>

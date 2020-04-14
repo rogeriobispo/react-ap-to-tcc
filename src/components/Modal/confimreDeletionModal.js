@@ -42,7 +42,7 @@ export default function ModalDelete(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button bsStyle="primary" onClick={handleClose}>
-                        Close
+                        Fechar
                     </Button>
                     <Button bsStyle="danger" onClick={handleConfim}>
                         Confirma

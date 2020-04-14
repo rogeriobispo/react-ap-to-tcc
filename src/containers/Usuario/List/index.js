@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Glyphicon, Popover, OverlayTrigger, Radio, FormGroup, Col, ControlLabel, Form, FormControl } from 'react-bootstrap';
+import { Glyphicon, Popover, OverlayTrigger, Radio, FormGroup, Col, ControlLabel, Form, FormControl, Breadcrumb } from 'react-bootstrap';
 
 import { format } from 'date-fns';
 import Tabela from '../../../components/Tabelas';
@@ -39,6 +39,8 @@ function UsuarioList() {
             setFilter(users.filter(u => u.doctor === true))
         if (filtertype === 'atendente')
             setFilter(users.filter(u => u.roles.includes('Recepcionist')))
+        if (filtertype === 'admin')
+            setFilter(users.filter(u => u.roles.includes('Admin')))
 
         setCurrentFilter(filtertype)
     }
@@ -172,7 +174,15 @@ function UsuarioList() {
 
     return (
 
-        <div className="Home">
+        <>
+            <Breadcrumb>
+                <Breadcrumb.Item href="/Home">Home</Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    Usuario
+                </Breadcrumb.Item>
+                <Breadcrumb.Item active>Lista</Breadcrumb.Item>
+            </Breadcrumb>
+
 
             <div className="lander">
 
@@ -210,6 +220,15 @@ function UsuarioList() {
                             >
                                 Atendente
                             </Radio>
+                            <Radio
+                                name="filter"
+                                value="admin"
+                                onChange={(e) => filterUsers(e.target.value)}
+                                inline
+                                checked={currentFilter === 'admin'}
+                            >
+                                Admin
+                            </Radio>
                         </Col>
                         <Col componentClass={ControlLabel} sm={1}>
                             Procurar
@@ -232,7 +251,7 @@ function UsuarioList() {
                     body={filter.map(user => tableBody(user))}
                 />
             </div>
-        </div>
+        </>
     );
 }
 

@@ -111,6 +111,7 @@ export default class CriarEspecialidade extends Component {
                     <CampoExames
                       value={values.exame}
                       onChange={handleChange}
+                      handleChange={handleChange}
                       onBlur={handleBlur}
                       errors={errors}
                       touched={touched}

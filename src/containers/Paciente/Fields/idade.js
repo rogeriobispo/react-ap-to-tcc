@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormGroup, Col, ControlLabel } from 'react-bootstrap'
-import Select from '../../../components/form/Select'
+import Select from '../../../components/form/Select/withouSearch'
 
 function Idade(props) {
     const idades = [

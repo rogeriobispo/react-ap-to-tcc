@@ -4,6 +4,7 @@ import {
     Form,
     FormGroup,
     Col,
+    Breadcrumb
 } from 'react-bootstrap';
 
 
@@ -92,7 +93,14 @@ export default class EditarMedicamento extends Component {
                         handleReset,
                     } = props;
                     return (
-                        <div className="Home">
+                        <>
+                            <Breadcrumb>
+                                <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+                                <Breadcrumb.Item>
+                                    Medicametos
+                                </Breadcrumb.Item>
+                                <Breadcrumb.Item active>Editar</Breadcrumb.Item>
+                            </Breadcrumb>
                             <div className="lander">
 
                                 <span className="mwarning">{this.state.errors}</span>
@@ -114,7 +122,7 @@ export default class EditarMedicamento extends Component {
                                     />
 
                                     <FormGroup>
-                                        <Col smOffset={0} sm={0}>
+                                        <Col smOffset={6} sm={0}>
                                             <BtnSubmit title="Salvar" />
                                             <BtnReset
                                                 title="limpar"
@@ -128,7 +136,7 @@ export default class EditarMedicamento extends Component {
                                 </Form>
 
                             </div>
-                        </div>
+                        </>
                     );
                 }}
             </Formik>

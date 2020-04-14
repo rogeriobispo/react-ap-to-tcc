@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, FormGroup, Col, ControlLabel, FormControl, Tooltip, Button } from "react-bootstrap"
+import { Form, FormGroup, Col, ControlLabel, FormControl, Tooltip, Button, Breadcrumb } from "react-bootstrap"
 import { Formik } from "formik";
 import * as Yup from "yup";
 
@@ -51,83 +51,89 @@ export default function trocaSenha(props) {
         } = props;
 
         return (
-
-          <div className="Home">
-            <div className="lander">
-              <span>
-                Usuario:
+          <>
+            <Breadcrumb>
+              <Breadcrumb.Item href="/Home">Home</Breadcrumb.Item>
+              <Breadcrumb.Item active>Troca Senha</Breadcrumb.Item>
+            </Breadcrumb>
+;
+            <div className="Home">
+              <div className="lander">
+                <span>
+                  Usuario:
 {' '}
-                {name}
-              </span>
-              <Form horizontal onSubmit={handleSubmit}>
-                {/* inicio Password */}
-                <FormGroup>
-                  <Col sm={2} />
-                  <Col componentClass={ControlLabel} sm={2}>
-                    Senha
-                  </Col>
-                  <Col sm={4}>
-                    <FormControl
-                      id="password"
-                      bsSize="large"
-                      placeholder="senha"
-                      type="password"
-                      value={values.password}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      className={
-                        errors.password && touched.password ? (
-                          'text-input error'
-                        ) : (
-                            'text-input'
-                          )
-                      }
-                    />
-                    {errors.password && touched.password && (
-                      <Tooltip placement="bottom" className="in" id="tooltip-right">{errors.password}</Tooltip>
-                    )}
-                  </Col>
-                </FormGroup>
-                {/* fim Password */}
-                {/* inicio Password2 */}
-                <FormGroup>
-                  <Col sm={2} />
-                  <Col componentClass={ControlLabel} sm={2}>
-                    Confirmação Senha
-                  </Col>
-                  <Col sm={4}>
-                    <FormControl
-                      id="confirmPassword"
-                      bsSize="large"
-                      placeholder="Confirmar senha"
-                      type="password"
-                      value={values.confirmPassword}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      className={
-                        errors.confirmPassword && touched.confirmPassword ? (
-                          'text-input error'
-                        ) : (
-                            'text-input'
-                          )
-                      }
-                    />
-                    {errors.confirmPassword && touched.confirmPassword && (
-                      <Tooltip placement="bottom" className="in" id="tooltip-right">{errors.confirmPassword}</Tooltip>
-                    )}
-                  </Col>
-                </FormGroup>
-                {/* fim Password */}
-                {/* Inicio botoes */}
-                <FormGroup>
-                  <Col smOffset={0} sm={0}>
-                    <Button type="submit" bsStyle="primary" bsSize="large" disabled={isSubmitting}>Alterar</Button>
-                  </Col>
-                </FormGroup>
-                {/* fim botoes */}
-              </Form>
+                  {name}
+                </span>
+                <Form horizontal onSubmit={handleSubmit}>
+                  {/* inicio Password */}
+                  <FormGroup>
+                    <Col sm={2} />
+                    <Col componentClass={ControlLabel} sm={2}>
+                      Senha
+                    </Col>
+                    <Col sm={4}>
+                      <FormControl
+                        id="password"
+                        bsSize="large"
+                        placeholder="senha"
+                        type="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={
+                          errors.password && touched.password ? (
+                            'text-input error'
+                          ) : (
+                              'text-input'
+                            )
+                        }
+                      />
+                      {errors.password && touched.password && (
+                        <Tooltip placement="bottom" className="in" id="tooltip-right">{errors.password}</Tooltip>
+                      )}
+                    </Col>
+                  </FormGroup>
+                  {/* fim Password */}
+                  {/* inicio Password2 */}
+                  <FormGroup>
+                    <Col sm={2} />
+                    <Col componentClass={ControlLabel} sm={2}>
+                      Confirmação Senha
+                    </Col>
+                    <Col sm={4}>
+                      <FormControl
+                        id="confirmPassword"
+                        bsSize="large"
+                        placeholder="Confirmar senha"
+                        type="password"
+                        value={values.confirmPassword}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={
+                          errors.confirmPassword && touched.confirmPassword ? (
+                            'text-input error'
+                          ) : (
+                              'text-input'
+                            )
+                        }
+                      />
+                      {errors.confirmPassword && touched.confirmPassword && (
+                        <Tooltip placement="bottom" className="in" id="tooltip-right">{errors.confirmPassword}</Tooltip>
+                      )}
+                    </Col>
+                  </FormGroup>
+                  {/* fim Password */}
+                  {/* Inicio botoes */}
+                  <FormGroup>
+                    <Col smOffset={0} sm={0}>
+                      <Button type="submit" bsStyle="primary" bsSize="large" disabled={isSubmitting}>Alterar</Button>
+                    </Col>
+                  </FormGroup>
+                  {/* fim botoes */}
+                </Form>
+              </div>
             </div>
-          </div>
+          </>
         );
       }}
     </Formik>

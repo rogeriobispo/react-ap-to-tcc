@@ -3,6 +3,7 @@ import {
     Form,
     FormGroup,
     Col,
+    Breadcrumb
 } from 'react-bootstrap';
 
 
@@ -95,8 +96,8 @@ export default class CriarUsuario extends Component {
                     admin: isAdmin(userToUpdate),
                     atendent: isRecepcionist(userToUpdate),
                     doctor: userToUpdate.doctor,
-                    crm: userToUpdate.crm,
-                    especialty_id: userToUpdate.specialty_id,
+                    crm: userToUpdate.crm || ' ',
+                    especialty_id: userToUpdate.specialty_id || ' ',
                 }}
                 onSubmit={async (user) => {
                     try {
@@ -159,7 +160,15 @@ export default class CriarUsuario extends Component {
                         handleReset,
                     } = props;
                     return (
-                        <div className="Home">
+                        <>
+                            <Breadcrumb>
+                                <Breadcrumb.Item href="/Home">Home</Breadcrumb.Item>
+                                <Breadcrumb.Item href="">
+                                    Usuario
+                                </Breadcrumb.Item>
+                                <Breadcrumb.Item active>Editar</Breadcrumb.Item>
+                            </Breadcrumb>
+;
                             <div className="lander">
                                 <span className="mwarning">{this.state.errors}</span>
                                 <Form horizontal onSubmit={handleSubmit}>
@@ -211,7 +220,7 @@ export default class CriarUsuario extends Component {
 
                                     />
                                     <FormGroup>
-                                        <Col smOffset={0} sm={0}>
+                                        <Col smOffset={6} sm={0}>
                                             <BtnSubmit title="Salvar" />
                                             <BtnReset
                                                 title="limpar"
@@ -226,7 +235,7 @@ export default class CriarUsuario extends Component {
                                 </Form>
 
                             </div>
-                        </div>
+                        </>
                     );
                 }}
             </Formik>

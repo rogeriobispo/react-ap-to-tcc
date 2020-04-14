@@ -3,6 +3,7 @@ import {
   Form,
   FormGroup,
   Col,
+  Breadcrumb
 } from 'react-bootstrap';
 
 
@@ -94,7 +95,7 @@ export default class CriarUsuario extends Component {
           } catch (e) {
 
             window.flash(
-              `Erro: ${e.response.data.errors}`,
+              `Erro: ${e.response.data.errors} ${e} `,
               'error'
             );
           }
@@ -147,7 +148,16 @@ export default class CriarUsuario extends Component {
             handleReset,
           } = props;
           return (
-            <div className="Home">
+            <>
+              <Breadcrumb>
+                <Breadcrumb.Item href="/Home">Home</Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  Usuario
+                </Breadcrumb.Item>
+                <Breadcrumb.Item active>Criar</Breadcrumb.Item>
+              </Breadcrumb>
+
+
               <div className="lander">
 
                 <span className="mwarning">{this.state.errors}</span>
@@ -216,7 +226,7 @@ export default class CriarUsuario extends Component {
 
                   />
                   <FormGroup>
-                    <Col smOffset={0} sm={0}>
+                    <Col smOffset={5} sm={0}>
                       <BtnSubmit title="Salvar" />
                       <BtnReset
                         title="limpar"
@@ -231,7 +241,8 @@ export default class CriarUsuario extends Component {
                 </Form>
 
               </div>
-            </div>
+
+            </>
           );
         }}
       </Formik>

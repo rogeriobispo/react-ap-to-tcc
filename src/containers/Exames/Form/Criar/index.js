@@ -5,6 +5,7 @@ import {
   Form,
   FormGroup,
   Col,
+  Breadcrumb
 } from 'react-bootstrap';
 
 import { Formik } from 'formik';
@@ -28,10 +29,15 @@ export default class CriarAtendimento extends Component {
       patient_id: this.props.location.state.schedule.patient_id
     }
     this.setExames = this.setExames.bind(this)
+    this.removeExames = this.removeExames.bind(this)
   }
 
   setExames(exames) {
     this.setState({ exames: [exames, ...this.state.exames] })
+  }
+
+  removeExames(exame) {
+    this.setState({ exames: this.state.exames.filter(ex => ex !== exame) })
   }
 
   render() {
@@ -91,7 +97,14 @@ export default class CriarAtendimento extends Component {
             setFieldValue
           } = props;
           return (
-            <div className="Home">
+            <>
+              <Breadcrumb>
+                <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  Atendimento
+                </Breadcrumb.Item>
+                <Breadcrumb.Item active>Solicitar exames</Breadcrumb.Item>
+              </Breadcrumb>
               <div className="lander">
 
                 <span className="mwarning">{this.state.errors}</span>
@@ -114,17 +127,18 @@ export default class CriarAtendimento extends Component {
                   />
                   <ListExame
                     exames={this.state.exames}
+                    removeExames={this.removeExames}
                   />
 
                   <FormGroup>
-                    <Col smOffset={0} sm={0}>
+                    <Col smOffset={6} sm={0}>
                       <BtnSubmit title="Finalizar" />
                     </Col>
                   </FormGroup>
                 </Form>
 
               </div>
-            </div>
+            </>
           );
         }}
       </Formik>

@@ -3,6 +3,7 @@ import {
   Form,
   FormGroup,
   Col,
+  Breadcrumb
 } from 'react-bootstrap';
 
 
@@ -41,7 +42,7 @@ export default class CriarMedicamento extends Component {
             })
             window.flash(`Especialidade criada com sucesso`, 'success');
             setTimeout(() => {
-              window.location.href = '/especialidadeList';
+              window.location.href = '/medicamentoList';
             }, 2000);
           } catch (e) {
 
@@ -75,7 +76,14 @@ export default class CriarMedicamento extends Component {
             handleReset,
           } = props;
           return (
-            <div className="Home">
+            <>
+              <Breadcrumb>
+                <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  Medicametos
+                </Breadcrumb.Item>
+                <Breadcrumb.Item active>Criar</Breadcrumb.Item>
+              </Breadcrumb>
               <div className="lander">
 
                 <span className="mwarning">{this.state.errors}</span>
@@ -97,7 +105,7 @@ export default class CriarMedicamento extends Component {
                   />
 
                   <FormGroup>
-                    <Col smOffset={0} sm={0}>
+                    <Col smOffset={6} sm={0}>
                       <BtnSubmit title="Salvar" />
                       <BtnReset
                         title="limpar"
@@ -111,7 +119,7 @@ export default class CriarMedicamento extends Component {
                 </Form>
 
               </div>
-            </div>
+            </>
           );
         }}
       </Formik>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   Col,
+  Breadcrumb
 } from 'react-bootstrap';
 import './list.css'
 
@@ -62,7 +63,14 @@ export default class ListarAgendamento extends Component {
 
           } = props;
           return (
-            <div className="Home">
+            <>
+              <Breadcrumb>
+                <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+                <Breadcrumb.Item href="http://getbootstrap.com/components/#breadcrumbs">
+                  Consulta
+                </Breadcrumb.Item>
+                <Breadcrumb.Item active>Lista</Breadcrumb.Item>
+              </Breadcrumb>
               <div className="lander">
 
                 <span className="mwarning">{this.state.errors}</span>
@@ -77,7 +85,7 @@ export default class ListarAgendamento extends Component {
                     touched={touched}
                   />
                   <hr />
-                    Doutor
+                    Médico
                   <CampoMedico
                     value={values.doctor}
                     handleChange={(e) => { handleChange(e); this.handleMedico(e) }}
@@ -96,7 +104,7 @@ export default class ListarAgendamento extends Component {
 
 
               </div>
-            </div>
+            </>
           );
         }}
       </Formik>

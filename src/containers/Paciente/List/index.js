@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FormControl, Col, Form, FormGroup, ControlLabel } from 'react-bootstrap';
+import { FormControl, Col, Form, FormGroup, ControlLabel, Breadcrumb } from 'react-bootstrap';
 
 import { format } from 'date-fns';
 import Tabela from '../../../components/Tabelas';
@@ -115,7 +115,14 @@ function PatientList() {
     }
 
     return (
-        <div className="Home">
+        <>
+            <Breadcrumb>
+                <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    Paciente
+                </Breadcrumb.Item>
+                <Breadcrumb.Item active>lista</Breadcrumb.Item>
+            </Breadcrumb>
 
             <div className="lander">
 
@@ -143,7 +150,7 @@ function PatientList() {
                     body={filter.map(patientInfo => tableBody(patientInfo))}
                 />
             </div>
-        </div>
+        </>
     );
 }
 

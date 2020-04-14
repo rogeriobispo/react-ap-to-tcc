@@ -4,17 +4,17 @@ import Select from '../../../components/form/Select'
 import TextField from '../../../components/form/TextField'
 import ClinicClient from '../../../services/Clinic/ClinicClient'
 
-function CampoMedicametos(props) {
+function CampoMedicamentos(props) {
 
-    const [medicametos, setMedicamentos] = useState([])
+    const [medicamentos, setMedicamentos] = useState([])
     const [dose, setDose] = useState('')
     const [medicamento, setMedicamento] = useState('')
 
 
     useEffect(() => {
         (async () => {
-            const medicamentos = await ClinicClient.get('/medicines')
-            setMedicamentos(medicamentos.data)
+            const response = await ClinicClient.get('/medicines')
+            setMedicamentos(response.data)
         })()
 
     }, [])
@@ -22,9 +22,10 @@ function CampoMedicametos(props) {
     function handleDose(e) {
         setDose(e.target.value)
     }
-    function handleMedicamento(e) {
-        const medicamentoNome = e.target.options[e.target.selectedIndex].text
-        setMedicamento({ id: e.target.value, name: medicamentoNome })
+    function handleMedicamento(medicaId) {
+        const medicmt = medicamentos.filter(m => Number(m.id) === Number(medicaId))
+        setMedicamento({ id: medicaId, name: medicmt[0].name, factory: medicmt[0].factory })
+
     }
     function addMedicine() {
         const jaCadastrado = props.medicamentos.filter(m => m.id === medicamento.id)
@@ -34,22 +35,13 @@ function CampoMedicametos(props) {
             window.flash('Medicamento ja na receita', 'error');
         }
     }
-    function medicametosOptions() {
-        const options = [
-            <option key={-1} value={-1}>
-                Selecione
-            </option>
-        ]
+    function medicamentosOptions() {
+        const options = []
 
-        medicametos.map((medi) => {
+        medicamentos.map((medi) => {
             options.push(
-                <option key={medi.id} value={medi.id}>
-                    {medi.name}
-                    {' '}
-                    -
-                    {' '}
-                    {medi.factory}
-                </option>)
+                { id: medi.id, value: medi.id, label: `${medi.name} - ${medi.factory}` }
+            )
             return true
         })
 
@@ -63,12 +55,14 @@ function CampoMedicametos(props) {
             </Col>
             <Col sm={4}>
                 <Select
+                    name='medicamentos'
                     id='medicamentos'
-                    onChange={(e) => { props.onChange(e); handleMedicamento(e) }}
-                    value={props.value}
-                    errors={props.errors}
-                    touched={props.touched}
-                    items={medicametosOptions()}
+                    onChange={(e) => { props.sonChange(e); handleMedicamento(e) }}
+                    handleChange={(e) => { props.sonChange(e); handleMedicamento(e) }}
+                    value={props.svalue}
+                    errors={props.serrors}
+                    touched={props.stouched}
+                    items={medicamentosOptions()}
                 />
             </Col>
             <Col sm={7}>
@@ -97,4 +91,4 @@ function CampoMedicametos(props) {
 }
 
 
-export default CampoMedicametos;
+export default CampoMedicamentos;

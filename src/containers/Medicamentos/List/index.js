@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import { Form, FormGroup, Col, ControlLabel, FormControl } from 'react-bootstrap'
+import { Form, FormGroup, Col, ControlLabel, FormControl, Breadcrumb } from 'react-bootstrap'
 import Tabela from '../../../components/Tabelas';
 import ClinicClient from '../../../services/Clinic/ClinicClient';
 import DetailModal from '../../../components/Modal/Detail';
@@ -99,8 +99,14 @@ function MedicineList() {
     }
 
     return (
-        <div className="Home">
-
+        <>
+            <Breadcrumb>
+                <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    Medicametos
+                </Breadcrumb.Item>
+                <Breadcrumb.Item active>Listar</Breadcrumb.Item>
+            </Breadcrumb>
             <div className="lander">
 
                 <Form horizontal onSubmit={(e) => e.preventDefault()}>
@@ -127,7 +133,7 @@ function MedicineList() {
                     body={filter.map(med => tableBody(med))}
                 />
             </div>
-        </div>
+        </>
 
     );
 }

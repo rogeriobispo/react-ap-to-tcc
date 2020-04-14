@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Jumbotron } from 'react-bootstrap'
+import { Jumbotron, Breadcrumb } from 'react-bootstrap'
 
 import clinicClient from '../../../services/Clinic/ClinicClient'
 
@@ -166,10 +166,19 @@ function Index() {
 
 
     return (
-        <Jumbotron>
-            <small>* Para remover agendamento click no botão azul</small>
-            <Agenda buttonState={buttonState} setButtonState={setButtonState} handleClick={handleClick} list />
-        </Jumbotron>
+        <>
+            <Breadcrumb>
+                <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+                <Breadcrumb.Item>
+                    Agenda
+                </Breadcrumb.Item>
+                <Breadcrumb.Item active>Criar</Breadcrumb.Item>
+            </Breadcrumb>
+            <Jumbotron>
+                <small>* Para remover agendamento click no botão azul</small>
+                <Agenda buttonState={buttonState} setButtonState={setButtonState} handleClick={handleClick} list />
+            </Jumbotron>
+        </>
     );
 }
 

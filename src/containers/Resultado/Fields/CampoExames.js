@@ -10,22 +10,15 @@ function Idade(props) {
         (async () => {
             const response = await ClinicClient.get(`/appointments/${props.apiId}/exams?finished=false`)
             setExames(response.data)
-
         })()
 
     }, [props.apiId])
 
-    const ex = [
-        <option key={-1} value={-1}>
-            Selecione
-        </option>
-    ]
+    const ex = []
 
     exames.map((exam) => {
         ex.push(
-            <option key={exam.id} value={exam.id}>
-                {exam.name}
-            </option>
+            { id: exam.id, value: exam.id, label: exam.name }
         )
         return true
     })
@@ -39,6 +32,7 @@ function Idade(props) {
                 <Select
                     id='exame'
                     onChange={props.onChange}
+                    handleChange={props.handleChange}
                     value={props.value}
                     errors={props.errors}
                     touched={props.touched}

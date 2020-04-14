@@ -47,7 +47,7 @@ function Detail(props) {
                     {' '}
                     &nbsp;
 
-                    <Button onClick={handleClose} bsStyle="primary">Close</Button>
+                    <Button onClick={handleClose} bsStyle="primary">Fechar</Button>
                 </Modal.Footer>
             </Modal>
         </div>

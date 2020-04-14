@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   Form,
   Col,
+  Breadcrumb
 } from 'react-bootstrap';
 
 
@@ -12,7 +13,6 @@ import { getDay, format } from 'date-fns'
 import ClinicClient from '../../../../services/Clinic/ClinicClient'
 import DatePicker from '../../Fields/campoDatePicker'
 import CampoMedico from '../../Fields/CampoMedico'
-import BtnReset from '../../../../components/form/BtnReset'
 import BtnSubmit from '../../../../components/form/btnSubmit'
 import CampoHorariosDisponivel from '../../Fields/CampoHorariosDisponivel'
 import CampoPaciente from '../../Fields/CampoPaciente'
@@ -37,7 +37,6 @@ export default class CriarAgendamento extends Component {
   }
 
   handlePaciente(patId) {
-    console.log(patId)
     this.setState({ pacienteId: patId })
   }
 
@@ -71,6 +70,7 @@ export default class CriarAgendamento extends Component {
 
       return
     }
+
     const response = await ClinicClient.get(`/doctors/${doctorId}/schedules`)
     await this.setState({ doctorSchedule: response.data })
 
@@ -146,15 +146,19 @@ export default class CriarAgendamento extends Component {
             values,
             touched,
             errors,
-            dirty,
-            isSubmitting,
             handleChange,
             handleBlur,
             handleSubmit,
-            handleReset,
           } = props;
           return (
-            <div className="Home">
+            <>
+              <Breadcrumb>
+                <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  Consulta
+                </Breadcrumb.Item>
+                <Breadcrumb.Item active>Criar</Breadcrumb.Item>
+              </Breadcrumb>
               <div className="lander">
 
                 <span className="mwarning">{this.state.errors}</span>
@@ -169,7 +173,7 @@ export default class CriarAgendamento extends Component {
                       touched={touched}
                     />
                     <hr />
-                    Doutor
+                    Médico
                     <CampoMedico
                       value={values.doctor}
                       handleChange={(e) => { handleChange(e); this.handleMedico(e) }}
@@ -186,13 +190,6 @@ export default class CriarAgendamento extends Component {
                     )}
                     <hr />
                     <BtnSubmit title="Salvar" />
-                    <BtnReset
-                      title="limpar"
-                      onClick={handleReset}
-                      disabled={
-                        !dirty || isSubmitting
-                      }
-                    />
                   </Col>
                   <Col sm={6} md={3}>
                     Horarios Disponiveis
@@ -207,7 +204,7 @@ export default class CriarAgendamento extends Component {
                 </Form>
 
               </div>
-            </div>
+            </>
           );
         }}
       </Formik>

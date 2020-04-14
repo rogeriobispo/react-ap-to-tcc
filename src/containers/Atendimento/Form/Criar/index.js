@@ -5,6 +5,7 @@ import {
   Form,
   FormGroup,
   Col,
+  Breadcrumb
 } from 'react-bootstrap';
 
 import { Formik } from 'formik';
@@ -14,6 +15,7 @@ import TipoAtendimento from '../../Fields/TipoAtendimento'
 import CampoDescricao from '../../Fields/CampoDescription'
 import CampoMedicamento from '../../Fields/CampoMedicamentos'
 import MedicamentosList from '../../Fields/MedicementosList'
+import HistoricoAtendimento from '../../Fields/HistoricoAtendimento'
 
 import BtnSubmit from '../../../../components/form/btnSubmit'
 import ClinicClient from '../../../../services/Clinic/ClinicClient';
@@ -26,10 +28,18 @@ export default class CriarAtendimento extends Component {
       medicamentos: []
     }
     this.setMedicamento = this.setMedicamento.bind(this)
+    this.removeMedicamento = this.removeMedicamento.bind(this)
   }
+
 
   setMedicamento(medicamentos) {
     this.setState({ medicamentos: [medicamentos, ...this.state.medicamentos] })
+  }
+
+  removeMedicamento(mId) {
+
+    const filtered = this.state.medicamentos.filter(m => Number(m.id) !== Number(mId))
+    this.setState({ medicamentos: filtered })
   }
 
   render() {
@@ -49,19 +59,24 @@ export default class CriarAtendimento extends Component {
             ClinicClient.put(`/appointments/${apId}`, {
               type: atendimento.tipo,
               description: atendimento.descricao,
-              status: true,
+              finished: true,
               prescription: medicamentos.length > 0
             })
 
             medicamentos.map((m) => {
-              ClinicClient.post(`/appointments/${apId}/medicine/${m.id}`)
+              ClinicClient.post(`/appointments/${apId}/medicine/`, {
+                medicine_id: m.id,
+                appointment_id: apId,
+                dose: m.dose
+
+              })
               return null
             })
 
             window.flash(`Atendimento finalizado com sucesso`, 'success');
-            setTimeout(() => {
-              window.location.href = '/atendimentoList';
-            }, 2000);
+            // setTimeout(() => {
+            //   window.location.href = '/atendimentoList';
+            // }, 2000);
           } catch (e) {
 
             window.flash(
@@ -92,10 +107,23 @@ export default class CriarAtendimento extends Component {
             setFieldValue
           } = props;
           return (
-            <div className="Home">
+            <>
+              <Breadcrumb>
+                <Breadcrumb.Item href="#">Home</Breadcrumb.Item>
+                <Breadcrumb.Item>
+                  Atendimento
+                </Breadcrumb.Item>
+                <Breadcrumb.Item active>Criar</Breadcrumb.Item>
+              </Breadcrumb>
               <div className="lander">
 
                 <span className="mwarning">{this.state.errors}</span>
+                <span>
+                  <Col smOffset={6} sm={0}>
+                    <bold>Paciente:</bold>
+                    {this.props.location.paciente.name}
+                  </Col>
+                </span>
                 <Form horizontal onSubmit={handleSubmit}>
                   <TipoAtendimento
                     setFieldValue={setFieldValue}
@@ -106,7 +134,7 @@ export default class CriarAtendimento extends Component {
                   <hr />
 
                   <CampoDescricao
-                    value={values.nome}
+                    value={values.descricao}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     errors={errors}
@@ -115,7 +143,8 @@ export default class CriarAtendimento extends Component {
                   />
 
                   <CampoMedicamento
-                    value={values.paciente}
+                    value={values.dose}
+                    handleChange={handleChange}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     errors={errors}
@@ -123,20 +152,29 @@ export default class CriarAtendimento extends Component {
                     setMedicamentos={this.setMedicamento}
                     medicamentos={this.state.medicamentos}
 
+                    svalue={values.medicamento}
+                    shandleChange={handleChange}
+                    sonChange={handleChange}
+                    sonBlur={handleBlur}
+                    serrors={errors}
+                    stouched={touched}
+
                   />
                   <MedicamentosList
                     medicamentos={this.state.medicamentos}
+                    removeMedicamento={this.removeMedicamento}
                   />
 
                   <FormGroup>
-                    <Col smOffset={0} sm={0}>
+                    <Col smOffset={6} sm={0}>
                       <BtnSubmit title="Finalizar" />
                     </Col>
                   </FormGroup>
                 </Form>
+                <HistoricoAtendimento paciente={this.props.location.paciente} />
 
               </div>
-            </div>
+            </>
           );
         }}
       </Formik>

@@ -3,11 +3,12 @@ import {
     Col,
     FormGroup
 } from 'react-bootstrap';
-import CheckBox from '../../../components/form/Checbox'
+import CheckBox from '../../../components/form/Checkbox'
 
 function CamposRoles(props) {
     return (
         <FormGroup>
+
             <Col sm={4}>
 
                 <CheckBox
@@ -15,7 +16,7 @@ function CamposRoles(props) {
                     value={props.doctor}
                     onChange={props.onChange}
                     onBlur={props.onBlur}
-                    title="Medico?"
+                    title="Médico?"
                 />
             </Col>
             <Col sm={4}>

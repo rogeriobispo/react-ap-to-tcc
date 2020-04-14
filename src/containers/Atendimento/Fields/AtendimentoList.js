@@ -27,7 +27,7 @@ function AtendimentoList(props) {
                     {format(new Date(schedule.date), 'HH:mm')}
                 </td>
                 <td>
-                    <Link to={`/atendimento/${schedule.id}`} className="btn btn-success active">
+                    <Link to={{ pathname: `/atendimento/${schedule.id}`, paciente: schedule.patient }} className="btn btn-success active">
                         <Glyphicon glyph='glyphicon glyphicon-play' />
                     </Link>
                 </td>

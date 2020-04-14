@@ -1,20 +1,13 @@
 import React from 'react';
-import { NavDropdown, MenuItem, NavItem } from "react-bootstrap"
-import { LinkContainer } from "react-router-bootstrap"
-import { admin, atendent } from '../../../services/authentication/auth'
+import { NavDropdown, MenuItem } from "react-bootstrap"
+import { atendent } from '../../../services/authentication/auth'
 
 function Pacient() {
     return (
         <>
-            {(admin() || atendent()) && (
+            {(atendent()) && (
                 <NavDropdown eventKey="1" title="Paciente" id="nav-dropdown">
-                    <MenuItem eventKey="1.1">
-                        <LinkContainer to={{ pathname: "/paciente" }}>
-                            <NavItem>
-                                Criar
-                            </NavItem>
-                        </LinkContainer>
-                    </MenuItem>
+                    <MenuItem eventKey="1.1" href='/paciente'>Criar</MenuItem>
                     <MenuItem divider />
                     <MenuItem eventKey="1.2" href="/pacienteList">Listar</MenuItem>
                 </NavDropdown>

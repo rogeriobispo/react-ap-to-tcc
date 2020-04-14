@@ -22,11 +22,13 @@ export default function Login(props) {
       login(response.data.token)
       props.history.push('/Home')
     } catch (e) {
+      console.dir(e)
       window.flash(`Usuário ou senha Inválida`, 'error')
     }
   }
 
   return (
+
     <PublicLayout isAuthenticated={false}>
       <div className="Login">
         <form onSubmit={handleSubmit}>
@@ -53,5 +55,6 @@ export default function Login(props) {
         </form>
       </div>
     </PublicLayout>
+
   )
 }
