@@ -74,9 +74,9 @@ export default class CriarAtendimento extends Component {
             })
 
             window.flash(`Atendimento finalizado com sucesso`, 'success');
-            // setTimeout(() => {
-            //   window.location.href = '/atendimentoList';
-            // }, 2000);
+            setTimeout(() => {
+              window.location.href = '/atendimentoList';
+            }, 2000);
           } catch (e) {
 
             window.flash(

@@ -8,7 +8,7 @@ import {
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { getDay, format } from 'date-fns'
+import { getDay, format, subHours } from 'date-fns'
 
 import ClinicClient from '../../../../services/Clinic/ClinicClient'
 import DatePicker from '../../Fields/campoDatePicker'
@@ -41,13 +41,14 @@ export default class CriarAgendamento extends Component {
   }
 
   async handleDateSelected(date) {
+    console.log('')
     const day = getDay(date)
 
     const formatedDate = format(date, 'yyyy-MM-dd')
-    const res = await ClinicClient.get(`/doctors/${this.state.doctorId}/appointments?date=${`${formatedDate}T00:00:00-0300`}`)
-
+    const res = await ClinicClient.get(`/doctors/${this.state.doctorId}/appointments?date=${`${formatedDate}T00:00:00-0300&filter=all`}`)
     const busyhours = []
-    res.data.map(sc => busyhours.push(sc.date.split('T')[1].substring(0, 5)))
+
+    res.data.map(sc => busyhours.push(format(new Date(sc.date), 'HH:mm')))
 
 
     const schedule_time = await this.state.doctorSchedule.map((value) => {
